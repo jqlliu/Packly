@@ -1,0 +1,14 @@
+-Use AWS (Databases)
+-Cloudflare -> good to know
+-Use Github
+-Accounts (Hashing, salting???)
+
+-Make a game -> store highscores? Multiplayer?
+
+IDEA==========
+basic idea - Spend points buy things from main shop/packs.
+Store things in accounts.
+salting the hash!
+Get points over time (50 a day), purchase, minigames.
+AWS server processing, account storage.
+Angular - website.
