@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
 
-
+//Yoinked
 @Component({
   selector: 'app-root',
   template: `

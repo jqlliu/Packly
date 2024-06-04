@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-
+//MAKE THE GUI cus Idont wanna
 @Component({
   selector: 'app-purchase',
   template: `

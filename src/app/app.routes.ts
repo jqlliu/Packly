@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import {AppComponent} from './app.component';
 import { HomeComponent } from './app.home';
 import { PurchaseComponent } from './app.purchase';
+//Next step add the db
 export const routes: Routes = [{
     path: '',
     title: 'Home',
