@@ -3,5 +3,5 @@ import {AppComponent} from './app.component';
 export const routes: Routes = [{
     path: '',
     title: 'Home',
-    component: AppComponent
+   // component: 
 }];
