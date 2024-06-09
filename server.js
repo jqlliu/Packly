@@ -6,3 +6,7 @@ app.use( (request, responce, next) =>{
 
 });
 
+app.get( '', ( responce, next) => {
+
+});
+
