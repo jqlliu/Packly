@@ -10,6 +10,7 @@ import { RouterOutlet } from '@angular/router';
  <p>E-Mail: <input id="email" type="text" /></p>
  <p>Username: <input id="username" type="text" /></p>
  <p>Password: <input id="password" type="text" /></p>
+ <button>Login</button>
 </label>
 `,
   standalone: true,
