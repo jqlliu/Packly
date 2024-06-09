@@ -7,10 +7,10 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-login',
   template: `
 <label>
- <p>E-Mail: <input id="email" type="text" /></p>
- <p>Username: <input id="username" type="text" /></p>
- <p>Password: <input id="password" type="text" /></p>
- <button>Login</button>
+ <p>E-Mail: <input id="email" type="text" class = "border"/></p>
+ <p>Username: <input id="username" type="text" class = "border"/></p>
+ <p>Password: <input id="password" type="text" class = "border"/></p>
+ <button class = "border">Login</button>
 </label>
 `,
   standalone: true,
@@ -18,9 +18,6 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css'
 })
 
-
-
 export class LoginComponent {
   title = 'Login';
-
 }
