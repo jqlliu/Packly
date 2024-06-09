@@ -6,7 +6,7 @@ import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-login',
   template: `
-<label>
+<label class="flex flex-col items-center">
  <p>E-Mail: <input id="email" type="email" class = "border"/></p>
  <p>Username: <input id="username" type="username" class = "border"/></p>
  <p>Password: <input id="password" type="password" class = "border"/></p>
