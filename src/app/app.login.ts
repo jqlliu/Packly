@@ -8,6 +8,8 @@ import { RouterOutlet } from '@angular/router';
   template: `
 <label>
   E-Mail: <input id="email" type="text" />
+  Username: <input id="email" type="text" />
+  Password: <input id="email" type="text" />
 </label>
 `,
   standalone: true,
