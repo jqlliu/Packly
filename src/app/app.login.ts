@@ -6,9 +6,8 @@ import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-login',
   template: `
-<label for="framework">
-  E-Mail:
-  <input id="framework" type="text" />
+<label>
+  E-Mail: <input id="email" type="text" />
 </label>
 `,
   standalone: true,
