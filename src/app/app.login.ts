@@ -6,7 +6,7 @@ import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-login',
   template: `
-<label>
+<label for = "email" class = "border">
   E-Mail: <input id="email" type="text" />
 </label>
 `,
