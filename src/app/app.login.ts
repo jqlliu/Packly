@@ -7,9 +7,9 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-login',
   template: `
 <label>
-  E-Mail: <input id="email" type="text" />
-  Username: <input id="username" type="text" />
-  Password: <input id="password" type="text" />
+ <p>E-Mail: <input id="email" type="text" /></p>
+ <p>Username: <input id="username" type="text" /></p>
+ <p>Password: <input id="password" type="text" /></p>
 </label>
 `,
   standalone: true,
