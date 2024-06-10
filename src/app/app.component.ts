@@ -23,17 +23,13 @@ import { OnInit } from '@angular/core';
 `,
   standalone: true,
   imports: [RouterOutlet, RouterLink],
-  styleUrl: './app.component.css',
+  styleUrl: './app.component.css'
 })
+
+
 
 export class AppComponent implements OnInit {
   title = 'my-app';
-  constructor(private api:ApiService){
 
-  }
-  ngOnInit(): void {
-    this.api.get().subscribe(data => {
-      console.log(data);
-    })
   }
 }

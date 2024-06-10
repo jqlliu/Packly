@@ -1,3 +1,4 @@
+
 const express = require("express");
 const app = express();
 
@@ -15,8 +16,8 @@ client.connect(function(error){
 });
 //Idk some middleware to handle CORS stuff
 app.use( (request, responce, next) =>{
-    responce.header("Access-Control-Allow-Origin", "http://localhost:4200"); 
-    responce.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"); 
+    res.header("Access-Control-Allow-Origin", "http://localhost:4200"); 
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"); 
     next(); 
 });
 
