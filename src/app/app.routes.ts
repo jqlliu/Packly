@@ -4,6 +4,9 @@ import { HomeComponent } from './app.home';
 import { PurchaseComponent } from './app.purchase';
 import {LoginComponent} from './app.login';
 import { SignupComponent } from './app.signup';
+import { ItemsComponent } from './app.items';
+import { TradeComponent } from './app.trade';
+import { AccountComponent } from './app.account';
 //Next step add the db
 export const routes: Routes = [{
     path: '',
@@ -21,4 +24,16 @@ export const routes: Routes = [{
     path: 'signup',
     title: 'Signup',
    component: SignupComponent
+},{
+    path: 'items',
+    title: 'Items',
+   component: ItemsComponent
+},{
+    path: 'trade',
+    title: 'Trade',
+   component: TradeComponent
+},{
+    path: 'account',
+    title: 'Account',
+   component: AccountComponent
 },];
