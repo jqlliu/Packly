@@ -11,8 +11,9 @@ import { ApiService } from './api.service';
       <ul class = "flex space-x-4 content-left basis-8/12">
         <li class = "text-white hover:text-gray-200"><a routerLink="/">Home</a></li>
         <li class = "text-white hover:text-gray-200"><a routerLink="/purchase">Purchase</a></li>
-        <li class = "text-white hover:text-gray-200"><a routerLink="/">Exchange</a></li>
-        <li class = "text-white hover:text-gray-200"><a href="#">Storage</a></li>
+        <li class = "text-white hover:text-gray-200"><a routerLink="/">Trade</a></li>
+        <li class = "text-white hover:text-gray-200"><a href="#">Your items</a></li>
+        <li class = "text-white hover:text-gray-200"><a href="#">Your Account</a></li>
         <li class = "text-white hover:text-gray-200"><a routerLink="/login">Login</a></li>
       </ul>
     </div>
