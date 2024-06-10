@@ -37,7 +37,7 @@ import { RouterLink } from '@angular/router';
  </div>
  </div>
  </form>
- <label class = "block pr-4 text-right">Dont have an account? <a routerLink="/signup">Sign up now!</a> </label>
+ <label class = "block pr-4 text-right">Dont have an account? <a routerLink="/signup" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Sign up now!</a> </label>
  </div>
 `,
   standalone: true,
