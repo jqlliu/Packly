@@ -22,12 +22,12 @@ import { ApiService } from './api.service';
 `,
   standalone: true,
   imports: [RouterOutlet, RouterLink],
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
-
-
 
 export class AppComponent {
   title = 'my-app';
+  constructor(private api:ApiService){
 
+  }
 }
