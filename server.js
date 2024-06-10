@@ -10,18 +10,20 @@ const client = new Client({
   port: 5432,
 });
 
-
 client.connect(function(error){
     console.log("DATABASE CONNECTED")
 });
 //Idk some middleware to handle CORS stuff
 app.use( (request, responce, next) =>{
-    res.header("Access-Control-Allow-Origin", "http://localhost:4200"); 
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"); 
+    responce.header("Access-Control-Allow-Origin", "http://localhost:4200"); 
+    responce.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"); 
     next(); 
 });
 
-app.get( '', ( responce, next) => {
-
+app.get( '/api/test', ( request, responce) => {
+    responce.json({ message: "I FOUND YOU"}); 
 });
 
+app.listen(3000, ()=>{
+    console.log("LISTENING");
+})

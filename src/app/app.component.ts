@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { ApiService } from './api.service';
+import { OnInit } from '@angular/core';
 //Yoinked
 @Component({
   selector: 'app-root',
@@ -25,9 +26,14 @@ import { ApiService } from './api.service';
   styleUrl: './app.component.css',
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'my-app';
   constructor(private api:ApiService){
 
+  }
+  ngOnInit(): void {
+    this.api.get().subscribe(data => {
+      console.log(data);
+    })
   }
 }
