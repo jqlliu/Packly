@@ -9,14 +9,6 @@ import { RouterLink } from '@angular/router';
   template: `
   <div class = "flex flex-col items-center align-middle px-auto py-12">
 <form class="w-full max-w-sm" [formGroup]="submissionForm">
-<div class="flex items-center mb-4">
- <div class = "w-1/3"> 
- <label class = "block pr-4 text-right"> E-Mail: </label> 
- </div> 
- <div class="w-2/3"> 
- <input id="email" type="email" class = "rounded border-2" formControlName = "email" name = "email"/>
- </div>
- </div> 
  <div class="flex items-center mb-4">
  <div class = "w-1/3">
  <label class = "block pr-4 text-right">Username:</label>
