@@ -6,12 +6,37 @@ import {FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 @Component({
   selector: 'app-login',
   template: `
-<form class="flex flex-col items-center" [formGroup]="submissionForm">
- <p>E-Mail: <input id="email" type="email" class = "border" formControlName = "email" name = "email"/></p>
- <p>Username: <input id="username" type="username" class = "border" formControlName = "username" name = "username"/></p>
- <p>Password: <input id="password" type="password" class = "border" formControlName = "password" name = "password"/></p>
- <button type="submit" class = "border" [disabled]="!submissionForm.valid"> Login </button>
-</form>
+  <div class = "flex flex-col items-center align-middle px-auto py-12">
+<form class="w-full max-w-sm" [formGroup]="submissionForm">
+<div class="flex items-center mb-4">
+ <div class = "w-1/3"> 
+ <label class = "block pr-4 text-right"> E-Mail: </label> 
+ </div> 
+ <div class="w-2/3"> 
+ <input id="email" type="email" class = "rounded border-2" formControlName = "email" name = "email"/>
+ </div>
+ </div> 
+ <div class="flex items-center mb-4">
+ <div class = "w-1/3">
+ <label class = "block pr-4 text-right">Username:</label>
+ </div> 
+ <div class="w-2/3"> 
+ <input id="username" type="username" class = "rounded border-2" formControlName = "username" name = "username"/>
+ </div>
+ </div>
+<div class="flex items-center mb-4">
+ <div class = "w-1/3"> 
+ <label class = "block pr-4 text-right">Password:</label></div>
+ <div class="w-2/3"> <input id="password" type="password" class = "border-2 rounded" formControlName = "password" name = "password"/></div>
+ </div>
+ <div class = "flex item-center mb-6">
+ <div class = "w-1/3"></div>
+ <div class = "w-2/3">
+ <button type="submit" class = "border-2 rounded items-right" [disabled]="!submissionForm.valid"> Login </button>
+ </div>
+ </div>
+ </form>
+ </div>
 `,
   standalone: true,
   imports: [ FormsModule, ReactiveFormsModule],
