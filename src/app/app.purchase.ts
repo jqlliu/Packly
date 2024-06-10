@@ -5,7 +5,7 @@ import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-purchase',
   template: `
-Purchase weaponry
+Purchase page
 `,
   standalone: true,
   styleUrl: './app.component.css'
