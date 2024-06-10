@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 //This is a comment
 @Component({
@@ -36,10 +37,11 @@ import {FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
  </div>
  </div>
  </form>
+ <label class = "block pr-4 text-right">Dont have an account? <a routerLink="/signup">Sign up now!</a> </label>
  </div>
 `,
   standalone: true,
-  imports: [ FormsModule, ReactiveFormsModule],
+  imports: [ FormsModule, ReactiveFormsModule, RouterLink],
   styleUrl: './app.component.css'
 })
 
