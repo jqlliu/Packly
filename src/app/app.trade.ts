@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 
 //This is a comment
 @Component({
-  selector: 'app-home',
+  selector: 'app-trade',
   template: `
 This page will be used to launch trade offers with other players, as well as accept incoming trade offers.
 `,
@@ -13,7 +13,7 @@ This page will be used to launch trade offers with other players, as well as acc
 
 
 
-export class HomeComponent {
-  title = 'Home';
+export class TradeComponent {
+  title = 'Trade';
 
 }

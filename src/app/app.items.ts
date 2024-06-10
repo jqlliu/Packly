@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 
 //This is a comment
 @Component({
-  selector: 'app-home',
+  selector: 'app-items',
   template: `
 This page will display all the items that the user has purchased.
 `,
@@ -13,7 +13,7 @@ This page will display all the items that the user has purchased.
 
 
 
-export class HomeComponent {
-  title = 'Home';
+export class ItemsComponent {
+  title = 'Items';
 
 }

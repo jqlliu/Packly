@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 
 //This is a comment
 @Component({
-  selector: 'app-home',
+  selector: 'app-account',
   template: `
 This page will display account info, like username and money.
 `,
@@ -13,7 +13,7 @@ This page will display account info, like username and money.
 
 
 
-export class HomeComponent {
-  title = 'Home';
+export class AccountComponent {
+  title = 'Account';
 
 }
