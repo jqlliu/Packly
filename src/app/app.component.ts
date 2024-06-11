@@ -6,8 +6,8 @@ import { NgOptimizedImage } from '@angular/common';
 //Yoinked
 @Component({
   selector: 'app-root',
-  template: `
-<nav class = "bg-gray-500 py-2">
+  template: ` 
+    <nav class = "bg-gray-500 py-2">
     <div class = "container flex mx-auto justify-between items-center">
     <img ngSrc="../assets/img/logo.png" alt="image" width = "16" height = "16">
       <a href = "" class = "text-white text-2xl font-semibold">Logo</a>
