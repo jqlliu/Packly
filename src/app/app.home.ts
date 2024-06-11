@@ -6,7 +6,7 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-home',
   template: `
   <!-- This breaks if the description is too short, oops -->
-<div class = "flow-text break-words min-w-xl max-w-max rounded-lg border-2 border-black-500 px-4 py-2 text-center">
+<div class = "flow-text break-words min-w-xl max-w-max rounded-lg border-2 border-black-500 px-4 py-2 mx-3 my-3 text-center">
   This is a description. Here is another sentence. And another. And another. And another. And another. And another. And another. And another. And another. And another. And another. And another. And another. And another. And another. And another. And another. And another. And another. And another. And another. And another. And another.
 </div>
 `,
