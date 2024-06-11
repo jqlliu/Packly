@@ -36,7 +36,7 @@ import {FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
  <div class = "flex item-center mb-6">
  <div class = "w-1/3"></div>
  <div class = "w-2/3">
- <button type="submit" class = "border-2 rounded items-right" [disabled]="!submissionForm.valid"> Sign up </button>
+ <button type="submit" class = "border-2 rounded items-right px-4 py-2" [disabled]="!submissionForm.valid"> Sign up </button>
  </div>
  </div>
  </form>
