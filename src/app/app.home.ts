@@ -9,11 +9,11 @@ import { RouterOutlet } from '@angular/router';
 <div class = "flow-text break-words w-xl max-w-max rounded-lg border-2 border-black-500 px-4 py-2 mx-3 my-3 text-center">
   Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description
 </div>
-<div>
-  <div class = "flow-text break-words w-6/12 max-w-max rounded-lg border-2 border-black-500 px-4 py-2 mx-3 my-3 text-center">
+<div class = "flex items-center justify-center">
+  <div class = "inline-block flow-text break-words w-md max-w-max rounded-lg border-2 border-black-500 px-4 py-2 mx-2 my-3 text-center">
     Daily Deals Daily Deals Daily Deals Daily Deals Daily Deals Daily Deals Daily Deals Daily Deals Daily Deals Daily Deals Daily Deals Daily Deals Daily Deals Daily Deals Daily Deals Daily Deals Daily Deals Daily Deals Daily Deals Daily Deals Daily Deals Daily Deals Daily Deals
   </div>
-  <div class = "flow-text break-words w-6/12 max-w-max rounded-lg border-2 border-black-500 px-4 py-2 mx-3 my-3 text-center">
+  <div class = "inline-block flow-text break-words w-md max-w-max rounded-lg border-2 border-black-500 px-4 py-2 mx-2 my-3 text-center">
     Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest
   </div>
 </div>
