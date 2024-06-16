@@ -25,6 +25,10 @@ app.get( '/api/test', ( request, responce) => {
     responce.json({ message: "I FOUND YOU"}); 
 });
 
+app.get( '/api/getAccountData', ( request, responce) => {
+    responce.json({ message: "ACCOUNT DATA HERE"}); 
+});
+
 app.listen(3000, ()=>{
     console.log("LISTENING");
 })
