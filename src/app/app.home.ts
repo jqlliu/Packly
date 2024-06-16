@@ -49,7 +49,7 @@ import { RouterOutlet } from '@angular/router';
     </li>
   </ul>
   <div class = "inline-block flow-text break-words w-1/2 rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-    Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest Daily Chest
+  <img Src="../img/Chest.png" alt="Daily Chest" width = "500" height = "500" class = "mx-auto">
   </div>
 </div>
 `,
