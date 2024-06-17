@@ -6,36 +6,99 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-purchase',
   template: `
   <p class = "flex flex-col items-center align-middle px-auto py-2">Category A</p>
-  <ul class="flow-text break-words w-xl max-w-max rounded-lg border-2 border-black-500 px-4 py-2 mx-3 my-3 text-center flex flex-col sm:flex-row">
-    <li class="inline-block flow-text break-words w-md max-w-max rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 1
+  <ul class="overflow-x-auto break-words max-w-max rounded-lg border-2 border-black-500 px-4 py-2 mx-2 flex space-x-4">
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 1
     </li>
-    <li class="inline-block flow-text break-words w-md max-w-max rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 2
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 2
     </li>
-    <li class="inline-block flow-text break-words w-md max-w-max rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 3
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 3
     </li>
-    <li class="inline-block flow-text break-words w-md max-w-max rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 4
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 4
     </li>
-    <li class="inline-block flow-text break-words w-md max-w-max rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 5
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 5
     </li>
-    <li class="inline-block flow-text break-words w-md max-w-max rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 6
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 6
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 7
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 8
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 9
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 10
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 11
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 12
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 13
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 14
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 15
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 16
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 17
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 18
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 19
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 20
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 21
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 22
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 23
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 24
     </li>
   </ul>
   <p class = "flex flex-col items-center align-middle px-auto py-2">Category B</p>
-  <ul class="flow-text break-words w-xl max-w-max rounded-lg border-2 border-black-500 px-4 py-2 mx-3 my-3 text-center flex flex-col sm:flex-row">
-    <li class="inline-block flow-text break-words w-md max-w-max rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 1
+  <ul class="overflow-x-auto break-words max-w-max rounded-lg border-2 border-black-500 px-4 py-2 mx-2 flex space-x-4">
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 1
     </li>
-    <li class="inline-block flow-text break-words w-md max-w-max rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 2
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 2
     </li>
-    <li class="inline-block flow-text break-words w-md max-w-max rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 3
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 3
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 4
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 5
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Pack 6
     </li>
   </ul>
 `,
