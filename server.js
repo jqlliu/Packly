@@ -26,7 +26,7 @@ app.get( '/api/test', ( request, responce) => {
 });
 
 app.get( '/api/getAccountData', ( request, responce) => {
-    responce.json({ message: "ACCOUNT DATA HERE"}); 
+    responce.json({ username: "testName", password: "testHash", id: 1, email: "cringe@cringe.cringe"}); 
 });
 
 app.listen(3000, ()=>{
