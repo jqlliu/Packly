@@ -40,7 +40,6 @@ import { RouterLink } from '@angular/router';
 export class LoginComponent {
   title = 'Login';
   submissionForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
     username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
   })
