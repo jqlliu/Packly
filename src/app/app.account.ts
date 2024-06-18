@@ -5,7 +5,8 @@ import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-account',
   template: `
-This page will display account info, like username and money.
+  <p class = "mx-5 my-5">Username: {{username}}</p>
+  <p class = "mx-5 my-5">E-Mail: {{email}}</p>
 `,
   standalone: true,
   styleUrl: './app.component.css'
@@ -15,5 +16,6 @@ This page will display account info, like username and money.
 
 export class AccountComponent {
   title = 'Account';
-
+  username = 'TestGuy';
+  email = 'TestGuy@Test.Com';
 }
