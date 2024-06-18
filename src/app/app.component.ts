@@ -35,6 +35,9 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.api.get().subscribe(data => {
       console.log(data);
+    });
+    this.api.getAccountInfo({id: 1}).subscribe(data => {
+      console.log(data);
     })
   }
 }

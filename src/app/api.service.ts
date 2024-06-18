@@ -12,4 +12,8 @@ export class ApiService{
     get(){
         return this.http.get('http://localhost:3000/api/test');
     }
+    getAccountInfo(params: any){
+        return this.http.get("http://localhost:3000/api/getAccountData", {params: params});
+    }
+
 }
