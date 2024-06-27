@@ -4,6 +4,7 @@ import { ApiService } from './api.service';
 import { OnInit } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 //Yoinked
+//Main area
 @Component({
   selector: 'app-root',
   template: `   
