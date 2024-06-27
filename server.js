@@ -32,9 +32,9 @@ app.get('/api/test', (request, responce) => {
   });
 });
 //Given an id return account information (might switch to checkAccountData or smthing later)
-app.get('/api/getAccountData', (request, responce) => {
+app.get('/api/getAccountData', async (request, responce) => {
   
-  res = {}
+  var res = {}
   const q = client.connect().then(
     () => {
       console.log("FOUND");
@@ -50,6 +50,10 @@ app.get('/api/getAccountData', (request, responce) => {
           email: result.rows[0].email,
           username: result.rows[0].username
         }
+        client.end().then(()=>{
+          console.log( res.email);
+          responce.json({email: res.email, username: res.username});
+        })
       });
     }
   ).catch(
@@ -58,7 +62,6 @@ app.get('/api/getAccountData', (request, responce) => {
     }
   );
   
-  responce.json(res);
 });
 
 app.listen(3000, () => {
