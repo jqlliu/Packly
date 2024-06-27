@@ -38,17 +38,17 @@ app.get('/api/getAccountData', (request, responce) => {
       console.log("FOUND");
       console.log(request.query.id)
       //Fetch account information in database given id
+      res = {}
       client.query("SELECT * FROM accounts WHERE id = " + request.query.id + ";", (error, result) => {
         //responce.json({username: })
 
         if (error) {
           console.log(error);
         } else {
-
-          responce.json({
+          res = {
             email: result.rows[0].email,
             username: result.rows[0].username
-          });
+          }
         }
       });
     }
