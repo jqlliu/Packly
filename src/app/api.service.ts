@@ -18,8 +18,12 @@ export class ApiService{
         return this.http.get("http://localhost:3000/api/getAccountData", {params: new HttpParams().set("id", id)});
     }
 
-    checkAccountInfo(params: any){
+    checkAccount(info: any){
 
+    }
+
+    putAccount(){
+        
     }
 
 }

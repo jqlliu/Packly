@@ -4,14 +4,14 @@ const app = express();
 const {
   Client
 } = require('pg');
-const client = new Client({
+
+const pgConfig = {
   user: 'postgres',
   host: 'localhost',
   database: 'postgres',
   password: '654321',
   port: 5432,
-});
-
+}
 function getAccountInfo(field) {
   client.query()
 }
@@ -32,10 +32,9 @@ app.get('/api/test', (request, responce) => {
   });
 });
 //Given an id return account information (might switch to checkAccountData or smthing later)
-app.get('/api/getAccountData', async (request, responce) => {
-  
-  var res = {}
-  const q = client.connect().then(
+app.get('/api/getAccountData', (request, responce) => {
+  const client = new Client(pgConfig);
+  client.connect().then(
     () => {
       console.log("FOUND");
       console.log(request.query.id)
@@ -46,14 +45,15 @@ app.get('/api/getAccountData', async (request, responce) => {
         if (error) {
           console.log(error);
         } 
-        res = {
-          email: result.rows[0].email,
-          username: result.rows[0].username
-        }
         client.end().then(()=>{
-          console.log( res.email);
-          responce.json({email: res.email, username: res.username});
-        })
+          console.log('CLOSED');
+          if(result.rowCount > 0){
+          responce.json({
+            email: result.rows[0].email,
+            username: result.rows[0].username
+          });
+        }
+        });
       });
     }
   ).catch(

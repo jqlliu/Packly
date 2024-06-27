@@ -34,9 +34,7 @@ export class AppComponent implements OnInit {
   constructor(private api: ApiService){
   }
   ngOnInit(): void {
-    this.api.get().subscribe(data => {
-      console.log(data);
-    });
+    
     // this.api.getAccountInfo(1).subscribe(data => {
     //   console.log(data);
     // })
