@@ -28,12 +28,13 @@ app.get( '/api/test', ( request, responce) => {
  
     responce.json({ message: "I FOUND YOU"}); 
 });
-
+//Given an id return account information (might switch to checkAccountData or smthing later)
 app.get( '/api/getAccountData', ( request, responce) => {
     client.connect().then(
         ()=>{
             console.log("FOUND");
-            client.query("SELECT * FROM accounts;", (error, result) =>{
+            //Fetch account information in database given id
+            client.query("SELECT * FROM accounts WHERE id = " + request.params.id + ";", (error, result) =>{
                 console.log("RESULT: " + result);
                 console.log(error);
             });
