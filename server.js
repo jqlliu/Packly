@@ -44,11 +44,10 @@ app.get('/api/getAccountData', (request, responce) => {
 
         if (error) {
           console.log(error);
-        } else {
-          res = {
-            email: result.rows[0].email,
-            username: result.rows[0].username
-          }
+        } 
+        res = {
+          email: result.rows[0].email,
+          username: result.rows[0].username
         }
       });
     }
