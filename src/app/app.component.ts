@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
     this.api.get().subscribe(data => {
       console.log(data);
     });
-    this.api.getAccountInfo({id: 1}).subscribe(data => {
+    this.api.getAccountInfo(1).subscribe(data => {
       console.log(data);
     })
   }

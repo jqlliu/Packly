@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 
 
 @Injectable({
@@ -9,11 +9,17 @@ export class ApiService{
     constructor(private http: HttpClient){
         
     }
+    //Test getter
     get(){
         return this.http.get('http://localhost:3000/api/test');
     }
-    getAccountInfo(params: any){
-        return this.http.get("http://localhost:3000/api/getAccountData", {params: params});
+    //Get account information (change to checkAccountInfo later)
+    getAccountInfo(id:number){
+        return this.http.get("http://localhost:3000/api/getAccountData", {params: new HttpParams().set("id", id)});
+    }
+
+    checkAccountInfo(params: any){
+
     }
 
 }
