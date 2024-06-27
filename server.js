@@ -33,12 +33,13 @@ app.get('/api/test', (request, responce) => {
 });
 //Given an id return account information (might switch to checkAccountData or smthing later)
 app.get('/api/getAccountData', (request, responce) => {
-  client.connect().then(
+  
+  res = {}
+  const q = client.connect().then(
     () => {
       console.log("FOUND");
       console.log(request.query.id)
       //Fetch account information in database given id
-      res = {}
       client.query("SELECT * FROM accounts WHERE id = " + request.query.id + ";", (error, result) => {
         //responce.json({username: })
 
@@ -56,6 +57,7 @@ app.get('/api/getAccountData', (request, responce) => {
       console.log(err);
     }
   );
+  
   responce.json(res);
 });
 
