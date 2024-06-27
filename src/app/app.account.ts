@@ -34,8 +34,8 @@ import { ApiService } from './api.service';
 
 export class AccountComponent implements OnInit {
   title = 'Account';
-  username = '';
-  email = '';
+  username = 'INIT';
+  email = 'INIT';
   constructor(private api: ApiService){
   }
   ngOnInit(): void {
