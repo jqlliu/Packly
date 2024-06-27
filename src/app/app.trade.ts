@@ -17,11 +17,6 @@ import { RouterLink } from '@angular/router';
   <input id="username" type="username" class = "rounded border-2" formControlName = "username" name = "username"/>
   </div>
   </div>
-  <div class="flex items-center mb-4">
-  <div class = "w-1/3"> 
-  <label class = "block pr-4 text-right">Trade Key:</label></div>
-  <div class="w-2/3"> <input id="tradekey" class = "border-2 rounded" formControlName = "tradekey" name = "tradekey"/></div>
-  </div>
   <div class = "flex item-center mb-6">
   <div class = "w-1/3"></div>
   <div class = "w-2/3">
@@ -29,7 +24,6 @@ import { RouterLink } from '@angular/router';
   </div>
   </div>
   </form>
-  <label class = "block pr-4 text-right text-xs">Note: A Trade Key is a number in everybody's account, needed to be sent a trade offer.</label>
  </div>
 `,
   standalone: true,

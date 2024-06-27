@@ -9,7 +9,6 @@ import { ApiService } from './api.service';
   template: `
   <p class = "mx-5 my-5">Username: {{username}}</p>
   <p class = "mx-5 my-5">E-Mail: {{email}}</p>
-  <p class = "mx-5 my-5">Trade Key: {{tradekey}}</p>
 `,
   standalone: true,
   styleUrl: './app.component.css'
@@ -29,7 +28,6 @@ export class AccountComponent implements OnInit {
       console.log(data);
     })
   }
-  tradekey = 'traddekey';
   username = 'TestGuy';
   email = 'TestGuy@Test.Com';
 }
