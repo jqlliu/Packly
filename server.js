@@ -56,12 +56,7 @@ app.get('/api/getAccountData', (request, responce) => {
       console.log(err);
     }
   );
-  responce.json({
-    username: "testName",
-    password: "testHash",
-    id: 1,
-    email: "cringe@cringe.cringe"
-  });
+  responce.json(res);
 });
 
 app.listen(3000, () => {
