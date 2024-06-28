@@ -49,6 +49,7 @@ import {FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 
 export class SignupComponent {
   title = 'Signup';
+  loginFail = false;
   submissionForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     username: new FormControl('', Validators.required),
@@ -57,6 +58,11 @@ export class SignupComponent {
   })
 
   signup() {
-    console.log(this.submissionForm.value.email + " " + this.submissionForm.value.username + " " + this.submissionForm.value.password + " " + this.submissionForm.value.confpassword)
+    if(this.submissionForm.value.password != this.submissionForm.value.confpassword) {
+      console.log("Failed to Sign up");
+      this.loginFail = true;
+    } else {
+      console.log(this.submissionForm.value.email + " " + this.submissionForm.value.username + " " + this.submissionForm.value.password + " " + this.submissionForm.value.confpassword);
+    }
   }
 }
