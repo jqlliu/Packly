@@ -10,10 +10,10 @@ import { RouterOutlet } from '@angular/router';
   <label class = "block pr-4 text-right">Sort By:</label>
   <div class="w-2/3"> 
   <select id="sortby" class = "rounded border-2" name="sortby">
-    <option value="volvo"></option>
-    <option value="saab">Option 1</option>
-    <option value="fiat">Option 2</option>
-    <option value="audi">Option 3</option>
+    <option value="none"></option>
+    <option value="1">Option 1</option>
+    <option value="2">Option 2</option>
+    <option value="3">Option 3</option>
   </select>
   </div>
   </div>
