@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { OnInit } from '@angular/core';
 import { ApiService } from './api.service';
 
-//This is a comment
+//TODO: Implement routeguard for this page so that it's only accessable when logged in, otherwise direct to login
 @Component({
   selector: 'app-account',
   template: `

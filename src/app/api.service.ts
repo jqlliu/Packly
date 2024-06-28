@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
 
+//DATABASES:
+//accounts: int id (primary key), char(32) username, char(256) password (hashed), char (256) email
 
 @Injectable({
     providedIn: "root"
@@ -13,16 +15,16 @@ export class ApiService{
     get(){
         return this.http.get('http://localhost:3000/api/test');
     }
-    //Get account information (change to checkAccountInfo later)
+    //Get account information to display in my account
     getAccountInfo(id:number){
         return this.http.get("http://localhost:3000/api/getAccountData", {params: new HttpParams().set("id", id)});
     }
-
+    //Check account information and return a session id (for authentication)
     checkAccount(info: any){
-
+        
     }
-
-    putAccount(){
+    //Attempt to create a new account
+    putAccount(info: any){
         
     }
 
