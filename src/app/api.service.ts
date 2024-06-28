@@ -1,8 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
 
-//DATABASES:
-//accounts: int id (primary key), char(32) username, char(256) password (hashed), char (256) email
 
 @Injectable({
     providedIn: "root"

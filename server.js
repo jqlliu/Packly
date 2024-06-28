@@ -16,8 +16,16 @@ function getAccountInfo(field) {
   client.query()
 }
 
+//DATABASES:
+//CREATE TABLE accounts (username VARCHAR(32), email VARCHAR(256), password VARCHAR(256), id SERIAL PRIMARY KEY  );
+//INSERT INTO accounts (username, email, password) ( a, a, a );
 
-//Idk some middleware to handle CORS stuff
+//CREATE TABLE inventory (inventory INT [] , id SERIAL PRIMARY KEY  );
+//INSERT INTO inventory (inventory) ( [] );
+
+//UPDATE inventory SET inventory [i] = inventory [i] + 1 WHERE id = 1;
+
+//Some middleware to handle CORS stuff
 app.use((request, responce, next) => {
   responce.header("Access-Control-Allow-Origin", "http://localhost:4200");
   responce.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -63,7 +71,7 @@ app.get('/api/getAccountData', (request, responce) => {
   
 });
 
-//Given an id return account information (might switch to checkAccountData or smthing later)
+//Given account info create new account
 app.put('/api/putAccountData', (request, responce) => {
   const client = new Client(pgConfig);
   client.connect().then(
