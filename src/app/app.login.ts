@@ -25,7 +25,7 @@ import { RouterLink } from '@angular/router';
  <div class = "flex item-center mb-6">
  <div class = "w-1/3"></div>
  <div class = "w-2/3">
- <button type="submit" class = "border-2 rounded items-right px-4 py-2" [disabled]="!submissionForm.valid"> Login </button>
+ <button type="submit" class = "border-2 rounded items-right px-4 py-2" [disabled]="!submissionForm.valid" (click) = "login()"> Login </button>
  </div>
  </div>
  </form>
@@ -43,4 +43,8 @@ export class LoginComponent {
     username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
   })
+
+  login() {
+    console.log(this.submissionForm.value.username + " " + this.submissionForm.value.password)
+  }
 }
