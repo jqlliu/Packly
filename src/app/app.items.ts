@@ -17,7 +17,7 @@ import { RouterOutlet } from '@angular/router';
   </select>
   </div>
   </div>
-  <ul class="overflow-x-auto break-words w-max rounded-lg border-2 border-black-500 px-4 py-2 mx-2 flex space-x-4 grid gap-4 grid-cols-3 md:grid-cols-5 lg:grid-cols-8">
+  <ul class="overflow-x-auto break-words w-max rounded-lg border-2 border-black-500 px-4 py-2 mx-2 flex space-x-4 grid gap-4 grid-cols-3 md:grid-cols-5 lg:grid-cols-12">
     <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
       Item 1
     </li>
@@ -53,6 +53,42 @@ import { RouterOutlet } from '@angular/router';
     </li>
     <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
       Item 12
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Item 13
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Item 14
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Item 15
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Item 16
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Item 17
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Item 18
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Item 19
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Item 20
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Item 21
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Item 22
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Item 23
+    </li>
+    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
+      Item 24
     </li>
   </ul>
 `,
