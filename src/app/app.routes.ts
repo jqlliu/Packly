@@ -7,6 +7,7 @@ import { SignupComponent } from './app.signup';
 import { ItemsComponent } from './app.items';
 import { TradeComponent } from './app.trade';
 import { AccountComponent } from './app.account';
+import { canActivate } from './api.routeguard';
 //Next step add the db
 export const routes: Routes = [{
     path: '',
@@ -35,5 +36,6 @@ export const routes: Routes = [{
 },{
     path: 'account',
     title: 'Account',
+    canActivate: [canActivate],
    component: AccountComponent
 },];
