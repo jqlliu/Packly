@@ -9,10 +9,6 @@ export class ApiService{
     constructor(private http: HttpClient){
         
     }
-    //Test getter
-    get(){
-        return this.http.get('http://localhost:3000/api/test');
-    }
     //Get account information to display in my account
     getAccountInfo(id:number){
         return this.http.get("http://localhost:3000/api/getAccountData", {params: new HttpParams().set("id", id)});
