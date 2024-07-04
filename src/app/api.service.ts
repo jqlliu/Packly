@@ -14,12 +14,12 @@ export class ApiService{
         return this.http.get("http://localhost:3000/api/getAccountData", {params: new HttpParams().set("id", id)});
     }
     //Check account information and return a session id (for authentication)
-    checkAccount(info: any){
-        
+    checkAccount(username: string, password: string){
+        return this.http.get("http://localhost:3000/api/checkAccountData", {params: new HttpParams().set("username", username).set("password", password)});
     }
     //Attempt to create a new account
-    putAccount(info: any){
-        
+    postAccount(info: any){
+        return this.http.get("http://localhost:3000/api/getAccountData", {params: new HttpParams().set("info", info)});
     }
 
 }

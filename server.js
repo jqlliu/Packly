@@ -67,40 +67,8 @@ app.get('/api/getAccountData', (req, res) => {
   
 });
 
-app.get('/api/getAccountData', (req, res) => {
-  const client = new Client(pgConfig);
-  client.connect().then(
-    () => {
-      console.log("FOUND");
-      console.log(req.query.id)
-      //Fetch account information in database given id
-
-      client.query("SELECT * FROM accounts WHERE id = " + req.query.id + ";", (error, result) => {
-        if (error) {
-          console.log(error);
-        } 
-        client.end().then(()=>{
-          console.log('CLOSED');
-          if(result.rowCount > 0){
-          res.json({
-            email: result.rows[0].email,
-            username: result.rows[0].username
-          });
-        }
-        });
-      });
-    }
-  ).catch(
-    (err) => {
-      console.log(err);
-    }
-  );
-  
-});
-
-
 //Given account info create new account
-app.put('/api/putAccountData', (req, res) => {
+app.put('/api/postAccountData', (req, res) => {
   const client = new Client(pgConfig);
   client.connect().then(
     () => {
