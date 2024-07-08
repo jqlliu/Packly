@@ -33,7 +33,7 @@ app.use((req, res, next) => {
   next();
 });
 app.use("/api/secure", (req, res) =>{
-
+  
 });
 //Given an id return account information (might switch to checkAccountData or smthing later)
 app.get('/api/getAccountData', (req, res) => {
