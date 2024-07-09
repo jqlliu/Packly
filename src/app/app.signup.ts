@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-
+import { ApiService } from './api.service';
 @Component({
   selector: 'app-signup',
   template: `
@@ -56,6 +56,11 @@ export class SignupComponent {
     password: new FormControl('', Validators.required),
     confpassword: new FormControl('', Validators.required),
   })
+  
+  // FormData fd = new FormData();
+  constructor(private api: ApiService){
+
+  }
 
   signup() {
     if(this.submissionForm.value.password != this.submissionForm.value.confpassword) {
@@ -63,6 +68,9 @@ export class SignupComponent {
       this.loginFail = true;
     } else {
       console.log(this.submissionForm.value.email + " " + this.submissionForm.value.username + " " + this.submissionForm.value.password + " " + this.submissionForm.value.confpassword);
+      // this.api.postAccount().subscribe(data => {
+          //  console.log(data);
+        //  })
     }
   }
 }

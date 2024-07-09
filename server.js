@@ -30,7 +30,7 @@ function getAccountInfo(field) {
 //Some middleware to handle CORS stuff
 
 
-function checkAccountExists(username, email) {
+function checkAccountExists(client, username, email) {
 
   client.query("SELECT * FROM accounts WHERE username = " + username + " OR email = " + email+";", (error, result) => {
     if (error) {
@@ -56,6 +56,10 @@ app.use((req, res, next) => {
 app.use("/api/secure", (req, res) => {
 
 });
+app.use("/api/postAccountData", express.urlencoded({
+  extended: true
+}));
+
 //Given an id return account information (might switch to checkAccountData or smthing later)
 app.get('/api/getAccountData', (req, res) => {
   const client = new Client(pgConfig);
@@ -91,7 +95,8 @@ app.post('/api/postAccountData', (req, res) => {
   client.connect().then(
     () => {
       //Check if existing account exists
-      if (!checkAccountExists(req.query.username, req.query.email)) {
+      console.log(req.body);
+      if (!checkAccountExists(client, req.body.username, req.body.email)) {
         //Add new account
         client.query("INSERT INTO accounts (username, email, password) VALUES" + "(" + req.query.username + "," + req.query.email + "," + req.query.password + "," + ")" + ";", (error, result) => {
           if (error) {

@@ -18,8 +18,8 @@ export class ApiService{
         return this.http.get("http://localhost:3000/api/checkAccountData", {params: new HttpParams().set("username", username).set("password", password)});
     }
     //Attempt to create a new account
-    postAccount(username: string, password: string, email: string){
-        return this.http.post("http://localhost:3000/api/postAccountData", {params: new HttpParams().set("email", email).set("username", username).set("password", password)});
+    postAccount(fd: FormData){
+        return this.http.post("http://localhost:3000/api/postAccountData", fd);
     }
 
 }
