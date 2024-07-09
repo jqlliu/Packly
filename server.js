@@ -30,9 +30,9 @@ function getAccountInfo(field) {
 //Some middleware to handle CORS stuff
 
 
-function checkAccountExists(username) {
+function checkAccountExists(username, email) {
 
-  client.query("SELECT * FROM accounts WHERE username = " + username + ";", (error, result) => {
+  client.query("SELECT * FROM accounts WHERE username = " + username + " OR email = " + email+";", (error, result) => {
     if (error) {
       console.log(error);
       return false;
@@ -91,7 +91,7 @@ app.post('/api/postAccountData', (req, res) => {
   client.connect().then(
     () => {
       //Check if existing account exists
-      if (!checkAccountExists(req.query.username)) {
+      if (!checkAccountExists(req.query.username, req.query.email)) {
         //Add new account
         client.query("INSERT INTO accounts (username, email, password) VALUES" + "(" + req.query.username + "," + req.query.email + "," + req.query.password + "," + ")" + ";", (error, result) => {
           if (error) {
