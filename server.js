@@ -23,7 +23,7 @@ function getAccountInfo(field) {
 //INSERT INTO accounts (username, email, password) VALUES ( a, a, a );
 
 //CREATE TABLE inventory (inventory INT [] , id SERIAL PRIMARY KEY  );
-//INSERT INTO inventory VALUES (inventory) ( ARRAY [] );
+//INSERT INTO inventory (inventory) VALUES ( ARRAY [] );
 
 //UPDATE inventory SET inventory [i] = inventory [i] + 1 WHERE id = 1;
 
