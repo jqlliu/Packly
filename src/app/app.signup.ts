@@ -63,14 +63,19 @@ export class SignupComponent {
   }
 
   signup() {
+    const d = new FormData();
     if(this.submissionForm.value.password != this.submissionForm.value.confpassword) {
       console.log("Failed to Sign up");
       this.loginFail = true;
     } else {
-      console.log(this.submissionForm.value.email + " " + this.submissionForm.value.username + " " + this.submissionForm.value.password + " " + this.submissionForm.value.confpassword);
-      // this.api.postAccount().subscribe(data => {
-          //  console.log(data);
-        //  })
+      if(this.submissionForm.value.email && this.submissionForm.value.username && this.submissionForm.value.password){
+        d.append("email", this.submissionForm.value.email);
+        d.append("username", this.submissionForm.value.username);
+        d.append("password", this.submissionForm.value.password);
+        this.api.postAccount(d).subscribe(data => {
+            console.log(data);
+          })
+        }
     }
   }
 }
