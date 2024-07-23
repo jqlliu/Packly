@@ -95,10 +95,10 @@ app.post('/api/postAccountData', (req, res) => {
   client.connect().then(
     () => {
       //Check if existing account exists
-      console.log(req.body);
+      console.log(req.query);
       if (!checkAccountExists(client, req.body.username, req.body.email)) {
         //Add new account
-        client.query("INSERT INTO accounts (username, email, password) VALUES" + "(" + req.query.username + "," + req.query.email + "," + req.query.password + "," + ")" + ";", (error, result) => {
+        client.query("INSERT INTO accounts (username, email, password) VALUES" + "(" + req.body.username + "," + req.body.email + "," + req.body.password + "," + ")" + ";", (error, result) => {
           if (error) {
             console.log(error);
           }
