@@ -1,5 +1,6 @@
 const express = require("express");
 const session = require("express-session");
+//const bodyparser = require("body-parse");
 const app = express();
 
 const {
@@ -30,21 +31,14 @@ function getAccountInfo(field) {
 //Some middleware to handle CORS stuff
 
 
-function checkAccountExists(client, username, email) {
-
-  client.query("SELECT * FROM accounts WHERE username = " + username + " OR email = " + email+";", (error, result) => {
+function checkAccountExists(client, username, email, callback) {
+  var s = "SELECT * FROM accounts WHERE username = '" + username + "' OR email = '" + email + "';";
+  client.query(s, (error, result) => {
     if (error) {
       console.log(error);
-      return false;
     }
-    client.end().then(() => {
-      console.log('CLOSED');
-      if (result.rowCount > 0) {
-        return true;
-      } else {
-        return false;
-      }
-    });
+    const rows = result.rowCount;
+    callback(rows == 0 ? true : false);
   });
 }
 
@@ -53,12 +47,16 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Headers", "Origin, X-reqed-With, Content-Type, Accept");
   next();
 });
+
 app.use("/api/secure", (req, res) => {
 
 });
-app.use("/api/postAccountData", express.urlencoded({
-  extended: true
-}));
+
+// app.use(express.urlencoded({
+//   extended: true
+// }));
+
+app.use(express.json());
 
 //Given an id return account information (might switch to checkAccountData or smthing later)
 app.get('/api/getAccountData', (req, res) => {
@@ -91,34 +89,42 @@ app.get('/api/getAccountData', (req, res) => {
 
 //Given account info create new account
 app.post('/api/postAccountData', (req, res) => {
+  console.log(req.body);
+  
   const client = new Client(pgConfig);
-  client.connect().then(
-    () => {
-      //Check if existing account exists
-      console.log(req.query);
-      if (!checkAccountExists(client, req.body.username, req.body.email)) {
-        //Add new account
-        client.query("INSERT INTO accounts (username, email, password) VALUES" + "(" + req.body.username + "," + req.body.email + "," + req.body.password + "," + ")" + ";", (error, result) => {
-          if (error) {
-            console.log(error);
-          }
-          client.end().then(() => {
-            res.json({success: true, errorCode: 0});
+  function create(valid) {
+    console.log("CALLED");
+    //Add new account
+    if (valid) {
+      client.query("INSERT INTO accounts (username, email, password) VALUES ('" + req.body.username + "', '" + req.body.email + "', '" + req.body.password + "' );", (error, result) => {
+        if (error) {
+          console.log(error);
+        }
+        client.end().then(() => {
+          res.json({
+            success: true,
+            errorCode: 0
           });
         });
-      } else {
-        client.end().then(() => {
-          if (result.rowCount > 0) {
-            res.json({success: true, errorCode: 1});
-          }
+      });
+    } else {
+      client.end().then(() => {
+        res.json({
+          success: false,
+          errorCode: 1
         });
-      }
+      });
     }
-  ).catch(
+  }
+  client.connect().then(
+    () => {
+
+      //Check if existing account exists
+      checkAccountExists(client, req.body.username, req.body.email, create);
+    }).catch(
     (err) => {
       console.log(err);
-    }
-  );
+    });
 
 });
 

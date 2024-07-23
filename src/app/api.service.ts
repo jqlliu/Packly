@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
+import { Form } from "@angular/forms";
 
 
 @Injectable({
@@ -18,7 +19,7 @@ export class ApiService{
         return this.http.get("http://localhost:3000/api/checkAccountData", {params: new HttpParams().set("username", username).set("password", password)});
     }
     //Attempt to create a new account
-    postAccount(fd: FormData){
+    postAccount(fd: any){
         return this.http.post("http://localhost:3000/api/postAccountData", fd);
     }
 
