@@ -57,7 +57,6 @@ export class SignupComponent {
     confpassword: new FormControl('', Validators.required),
   })
   
-  // FormData fd = new FormData();
   constructor(private api: ApiService){
 
   }
