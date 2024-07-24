@@ -33,9 +33,9 @@ import { CookieService } from 'ngx-cookie-service';
  <label class = "block pr-4 text-right">Dont have an account? <a routerLink="/signup" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Sign up now!</a> </label>
  </div>
 `,
-  providers: [CookieService],
   standalone: true,
   imports: [ FormsModule, ReactiveFormsModule, RouterLink],
+  providers: [CookieService],
   styleUrl: './app.component.css'
 })
 
@@ -49,10 +49,6 @@ export class LoginComponent {
   })
 
   login() {
-    console.log(this.submissionForm.value.username + " " + this.submissionForm.value.password)
-    this.cookieService.set('test', 'test2', 1);
-    console.log(this.cookieService.get('test'));
-    this.cookieService.delete('test');
-    console.log(this.cookieService.get('test'));
+
   }
 }
