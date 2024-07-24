@@ -49,9 +49,8 @@ export class LoginComponent {
   })
 
   login() {
-    this.cookieService.set('test1','test2',1);
+    this.cookieService.set('test1', 'test2', 1);
     console.log(this.cookieService.get('test1'));
     this.cookieService.delete('test1');
-    console.log(this.cookieService.get('test1'));
   }
 }
