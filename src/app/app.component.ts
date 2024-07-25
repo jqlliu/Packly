@@ -3,6 +3,12 @@ import { RouterOutlet, RouterLink } from '@angular/router';
 import { ApiService } from './api.service';
 import { OnInit } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
+//MODULES:
+//Front: Angular 18, Tailwind
+//Back: Node.js with: express, express-session
+//DB: PGSQL
+
+
 //Yoinked
 //Main area
 @Component({

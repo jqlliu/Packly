@@ -20,13 +20,20 @@ function getAccountInfo(field) {
 }
 
 //DATABASES:
+
 //CREATE TABLE accounts (username VARCHAR(32), email VARCHAR(256), password VARCHAR(256), id SERIAL PRIMARY KEY  );
 //INSERT INTO accounts (username, email, password) VALUES ( a, a, a );
 
-//CREATE TABLE inventory (inventory INT [] , id SERIAL PRIMARY KEY  );
-//INSERT INTO inventory (inventory) VALUES ( ARRAY [] );
+
+//CREATE TABLE inventory (inventory INT [] , id INT PRIMARY KEY  );
+//INSERT INTO inventory (inventory) VALUES ( ARRAY []::integer[] , id );
+
 
 //UPDATE inventory SET inventory [i] = inventory [i] + 1 WHERE id = 1;
+
+
+//TRUNCATE accounts;
+//TRUNCATE inventory;
 
 //Some middleware to handle CORS stuff
 
@@ -39,6 +46,17 @@ function checkAccountExists(client, username, email, callback) {
     }
     const rows = result.rowCount;
     callback(rows == 0 ? true : false);
+  });
+}
+
+function createInventory(client, username, callback) {
+  client.query("SELECT * FROM accounts WHERE username = '" + username + "';", (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    if (result.rowCount > 0) {
+      callback(result.rows[0].id);
+    }
   });
 }
 
@@ -90,20 +108,25 @@ app.get('/api/getAccountData', (req, res) => {
 //Given account info create new account
 app.post('/api/postAccountData', (req, res) => {
   console.log(req.body);
-  
   const client = new Client(pgConfig);
+  //Create function to make a new account
   function create(valid) {
-    console.log("CALLED");
     //Add new account
     if (valid) {
       client.query("INSERT INTO accounts (username, email, password) VALUES ('" + req.body.username + "', '" + req.body.email + "', '" + req.body.password + "' );", (error, result) => {
+
         if (error) {
           console.log(error);
         }
-        client.end().then(() => {
-          res.json({
-            success: true,
-            errorCode: 0
+        createInventory(client, req.body.username, function (id) {
+          client.query("INSERT INTO inventory (inventory, id) VALUES ( ARRAY []::integer[], " + id + ");", (result, err) => {
+            client.end().then(() => {
+              console.log("FINISHED");
+              res.json({
+                success: true,
+                errorCode: 0
+              });
+            });
           });
         });
       });
@@ -116,9 +139,9 @@ app.post('/api/postAccountData', (req, res) => {
       });
     }
   }
+  //
   client.connect().then(
     () => {
-
       //Check if existing account exists
       checkAccountExists(client, req.body.username, req.body.email, create);
     }).catch(
