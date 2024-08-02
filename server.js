@@ -60,6 +60,17 @@ function createInventory(client, username, callback) {
   });
 }
 
+function addCard(client, id, cardId, callback){
+  client.query("UPDATE inventory SET inventory [" + cardId + "] = inventory [" + cardId + "] + 1 WHERE id = " + id + ";", (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    if(callback){
+      callback();
+    }
+  });
+}
+
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "http://localhost:4200");
   res.header("Access-Control-Allow-Headers", "Origin, X-reqed-With, Content-Type, Accept");
@@ -76,7 +87,7 @@ app.use("/api/secure", (req, res) => {
 
 app.use(express.json());
 
-//Given an id return account information (might switch to checkAccountData or smthing later)
+//Given an id return account information. Does NOT include passwords
 app.get('/api/getAccountData', (req, res) => {
   const client = new Client(pgConfig);
   client.connect().then(
@@ -102,7 +113,6 @@ app.get('/api/getAccountData', (req, res) => {
       console.log(err);
     }
   );
-
 });
 
 //Given account info create new account
@@ -154,3 +164,4 @@ app.post('/api/postAccountData', (req, res) => {
 app.listen(3000, () => {
   console.log("LISTENING");
 })
+
