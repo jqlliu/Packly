@@ -16,7 +16,7 @@ export class ApiService{
     }
     //Get a session key to a successful login
     getSessionKey(id:number){
-        return this.http.get("http://localhost:3000/api/getSessionKey", {params: new HttpParams().set("id", id)});
+        return this.http.get("http://localhost:3000/api/getAuthenticateUser", {params: new HttpParams().set("id", id)});
     }
     //Check account information and return a session id (for authentication)
     checkAccount(username: string, password: string){
