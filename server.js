@@ -92,6 +92,15 @@ app.get('/api/getAuthenticateUser', (req, res) => {
   const client = new Client(pgConfig);
   client.connect().then(
     () => {
+      //Authenticate user
+
+
+
+      //Failure, return -1
+
+
+
+      //Authentication success, return session key
       while (true) {
       //Get a random session key from 0 to 999999
       key = Math.floor(Math.random() * 1000000);
