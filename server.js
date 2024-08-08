@@ -87,6 +87,16 @@ app.get('/api/getAccountData', (req, res) => {
 
 });
 
+//Given a login, return a seesion key, and upload it to the database
+app.get('/api/getSessionKey', (req, res) => {
+  const client = new Client(pgConfig);
+  client.connect().then(
+    () => {
+      
+    }
+  )
+});
+
 //Given account info create new account
 app.post('/api/postAccountData', (req, res) => {
   console.log(req.body);
