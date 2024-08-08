@@ -93,28 +93,38 @@ app.get('/api/getAuthenticateUser', (req, res) => {
   client.connect().then(
     () => {
       //Authenticate user
-
-
-
-      //Failure, return -1
-
-
-
-      //Authentication success, return session key
-      while (true) {
-      //Get a random session key from 0 to 999999
-      key = Math.floor(Math.random() * 1000000);
-      client.query("SELECT * FROM sessionids WHERE sessionId = " + key + ";", (error, result) => {
+      success = false;
+      client.query("SELECT * FROM accounts WHERE username = " + req.query.username + ";", (error, result) => {
         if (error) {
           console.log(error);
         }
         client.end().then(() => {
           console.log('CLOSED');
-          if (result.rowCount > 0) {
-            return key;
+          //Check for successful authentication
+          if (result.password == req.query.password) {
+            success = true;
           }
         });
       });
+      //Failure, return -1 (Failure signal)
+      if (!success) {
+        return -1;
+      }
+      //Authentication success, return session key
+      while (true) {
+        //Get a random session key from 0 to 999999
+        key = Math.floor(Math.random() * 1000000);
+        client.query("SELECT * FROM sessionids WHERE sessionId = " + key + ";", (error, result) => {
+          if (error) {
+            console.log(error);
+          }
+          client.end().then(() => {
+            console.log('CLOSED');
+            if (result.rowCount == 0) {
+              return key;
+            }
+          });
+        });
       }
     }
   )
