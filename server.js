@@ -111,20 +111,26 @@ app.get('/api/getAuthenticateUser', (req, res) => {
         }
         //Failure, return -1 (Failure signal)
         if (!success) {
-          return -1;
+          res.json({
+            key: -1
+          });
+          client.end();
         }
         //Authentication success, return session key. Loop until gotten unused key.
         while (true) {
           //Get a random session key from 0 to 999999
           key = Math.floor(Math.random() * 1000000);
+          //Check if already in use
           client.query("SELECT * FROM sessionids WHERE sessionkey = " + key + ";", (error, result) => {
             if (error) {
               console.log(error);
             }
             client.end().then(() => {
-              console.log('CLOSED');
+              //If not in use, give to user. Otherwise, loop.
               if (result.rowCount == 0) {
-                return key;
+                res.json({
+                  key: key
+                });
               }
             });
           });
