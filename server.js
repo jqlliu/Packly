@@ -94,7 +94,12 @@ app.get('/api/getAuthenticateUser', (req, res) => {
     () => {
       //Authenticate user
       success = false;
+      //Query the Database
       client.query("SELECT * FROM accounts WHERE username = " + req.query.username + ";", (error, result) => {
+        //DEBUGDEBUG
+        console.log("QUERYING");
+        //DEBUGDEBUG
+        //If error, log
         if (error) {
           console.log(error);
         }
@@ -108,9 +113,12 @@ app.get('/api/getAuthenticateUser', (req, res) => {
       });
       //Failure, return -1 (Failure signal)
       if (!success) {
+        //DEBUGDEBUG
+        console.log("FAILURE");
+        //DEBUGDEBUG
         return -1;
       }
-      //Authentication success, return session key
+      //Authentication success, return session key. Loop until gotten unused key.
       while (true) {
         //Get a random session key from 0 to 999999
         key = Math.floor(Math.random() * 1000000);
@@ -121,6 +129,9 @@ app.get('/api/getAuthenticateUser', (req, res) => {
           client.end().then(() => {
             console.log('CLOSED');
             if (result.rowCount == 0) {
+              //DEBUGDEBUG
+              console.log(key);
+              //DEBUGDEBUG
               return key;
             }
           });
