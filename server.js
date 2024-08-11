@@ -103,7 +103,6 @@ app.get('/api/getAuthenticateUser', (req, res) => {
         if (error) {
           console.log(error);
         }
-        console.log('CLOSED');
         //Check for successful authentication
         for (let i = 0; i < result.rowCount; i++) {
           if (result.rows[i].password == req.query.password) {
@@ -116,10 +115,9 @@ app.get('/api/getAuthenticateUser', (req, res) => {
           res.json({
             key: -1
           });
-          client.end();
         }
         //Authentication success, return session key. Loop until gotten unused key.
-        while (true) {
+        while (success) {
           //Get a random session key from 0 to 999999
           key = Math.floor(Math.random() * 1000000);
           //Check if already in use
@@ -135,11 +133,12 @@ app.get('/api/getAuthenticateUser', (req, res) => {
                 res.json({
                   key: key
                 });
-                client.end();
+                success = false;
               }
             });
           });
         }
+        client.end();
       });
     }
   )
