@@ -96,9 +96,6 @@ app.get('/api/getAuthenticateUser', (req, res) => {
       success = false;
       //Query the Database
       client.query("SELECT * FROM accounts WHERE username = " + req.query.username + ";", (error, result) => {
-        //DEBUGDEBUG
-        console.log("QUERYING");
-        //DEBUGDEBUG
         //If error, log
         if (error) {
           console.log(error);
@@ -106,16 +103,15 @@ app.get('/api/getAuthenticateUser', (req, res) => {
         client.end().then(() => {
           console.log('CLOSED');
           //Check for successful authentication
-          if (result.password == req.query.password) {
-            success = true;
+          for (let i = 0; i < result.rowCount; i++) {
+            if (result.rows[i].password == req.query.password) {
+              success = true;
+            }
           }
         });
       });
       //Failure, return -1 (Failure signal)
       if (!success) {
-        //DEBUGDEBUG
-        console.log("FAILURE");
-        //DEBUGDEBUG
         return -1;
       }
       //Authentication success, return session key. Loop until gotten unused key.
@@ -129,9 +125,6 @@ app.get('/api/getAuthenticateUser', (req, res) => {
           client.end().then(() => {
             console.log('CLOSED');
             if (result.rowCount == 0) {
-              //DEBUGDEBUG
-              console.log(key);
-              //DEBUGDEBUG
               return key;
             }
           });
