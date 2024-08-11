@@ -43,6 +43,11 @@ function checkAccountExists(client, username, email, callback) {
   });
 }
 
+//ToDo: Implement this helper function
+function recursiveGetSessionKey() {
+
+}
+
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "http://localhost:4200");
   res.header("Access-Control-Allow-Headers", "Origin, X-reqed-With, Content-Type, Accept");
@@ -117,6 +122,7 @@ app.get('/api/getAuthenticateUser', (req, res) => {
           });
         }
         //Authentication success, return session key. Loop until gotten unused key.
+        //ToDo: Change this loop into recursion
         while (success) {
           //Get a random session key from 0 to 999999
           key = Math.floor(Math.random() * 1000000);
