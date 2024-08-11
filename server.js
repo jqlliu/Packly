@@ -87,6 +87,8 @@ app.get('/api/getAccountData', (req, res) => {
 
 });
 
+//CREATE TABLE sessionids (sessionkey INT, id INT);
+
 //Given a login, return a session key if valid, and upload the session key to the database
 app.get('/api/getAuthenticateUser', (req, res) => {
   const client = new Client(pgConfig);
@@ -118,7 +120,7 @@ app.get('/api/getAuthenticateUser', (req, res) => {
       while (true) {
         //Get a random session key from 0 to 999999
         key = Math.floor(Math.random() * 1000000);
-        client.query("SELECT * FROM sessionids WHERE sessionId = " + key + ";", (error, result) => {
+        client.query("SELECT * FROM sessionids WHERE sessionkey = " + key + ";", (error, result) => {
           if (error) {
             console.log(error);
           }
