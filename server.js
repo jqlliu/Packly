@@ -97,7 +97,7 @@ app.get('/api/getAuthenticateUser', (req, res) => {
       //Authenticate user
       success = false;
       //Query the Database
-      client.query("SELECT * FROM accounts WHERE username = " + req.query.username + ";", (error, result) => {
+      client.query("SELECT * FROM accounts WHERE username = '" + req.query.username + "';", (error, result) => {
         //If error, log
         if (error) {
           console.log(error);
