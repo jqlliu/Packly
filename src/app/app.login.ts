@@ -3,6 +3,7 @@ import {FormGroup, FormControl} from '@angular/forms';
 import {FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { ApiService } from './api.service';
 
 //This is a comment
 @Component({
@@ -40,7 +41,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 
 export class LoginComponent {
-  constructor(private cookieService: CookieService) { }
+  constructor(private cookieService: CookieService, private api: ApiService) { }
 
   title = 'Login';
   submissionForm = new FormGroup({
@@ -52,5 +53,11 @@ export class LoginComponent {
     this.cookieService.set('test1', 'test2', 1);
     console.log(this.cookieService.get('test1'));
     this.cookieService.delete('test1');
+    this.api.authenticateLogin({
+      username: this.submissionForm.value.username, 
+      password:  this.submissionForm.value.password
+    }).subscribe(data => {
+        console.log(data);
+    })
   }
 }
