@@ -1,3 +1,4 @@
+const { log } = require("@angular-devkit/build-angular/src/builders/ssr-dev-server");
 const express = require("express");
 const session = require("express-session");
 //const bodyparser = require("body-parse");
@@ -111,6 +112,7 @@ app.get('/api/getAuthenticateUser', (req, res) => {
         }
         //Failure, return -1 (Failure signal)
         if (!success) {
+          console.log("AUTHENTICATION FAILED");
           res.json({
             key: -1
           });
@@ -122,20 +124,22 @@ app.get('/api/getAuthenticateUser', (req, res) => {
           key = Math.floor(Math.random() * 1000000);
           //Check if already in use
           client.query("SELECT * FROM sessionids WHERE sessionkey = " + key + ";", (error, result) => {
+            console.log("CHECKING SESSION KEYS");
             if (error) {
               console.log(error);
             }
             client.end().then(() => {
               //If not in use, give to user. Otherwise, loop.
               if (result.rowCount == 0) {
+                console.log(key);
                 res.json({
                   key: key
                 });
+                client.end();
               }
             });
           });
         }
-        client.end();
       });
     }
   )
