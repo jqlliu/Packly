@@ -102,36 +102,35 @@ app.get('/api/getAuthenticateUser', (req, res) => {
         if (error) {
           console.log(error);
         }
-        client.end().then(() => {
-          console.log('CLOSED');
-          //Check for successful authentication
-          for (let i = 0; i < result.rowCount; i++) {
-            if (result.rows[i].password == req.query.password) {
-              success = true;
-            }
+        console.log('CLOSED');
+        //Check for successful authentication
+        for (let i = 0; i < result.rowCount; i++) {
+          if (result.rows[i].password == req.query.password) {
+            success = true;
           }
-        });
-      });
-      //Failure, return -1 (Failure signal)
-      if (!success) {
-        return -1;
-      }
-      //Authentication success, return session key. Loop until gotten unused key.
-      while (true) {
-        //Get a random session key from 0 to 999999
-        key = Math.floor(Math.random() * 1000000);
-        client.query("SELECT * FROM sessionids WHERE sessionkey = " + key + ";", (error, result) => {
-          if (error) {
-            console.log(error);
-          }
-          client.end().then(() => {
-            console.log('CLOSED');
-            if (result.rowCount == 0) {
-              return key;
+        }
+        //Failure, return -1 (Failure signal)
+        if (!success) {
+          return -1;
+        }
+        //Authentication success, return session key. Loop until gotten unused key.
+        while (true) {
+          //Get a random session key from 0 to 999999
+          key = Math.floor(Math.random() * 1000000);
+          client.query("SELECT * FROM sessionids WHERE sessionkey = " + key + ";", (error, result) => {
+            if (error) {
+              console.log(error);
             }
+            client.end().then(() => {
+              console.log('CLOSED');
+              if (result.rowCount == 0) {
+                return key;
+              }
+            });
           });
-        });
-      }
+        }
+        client.end();
+      });
     }
   )
 });
