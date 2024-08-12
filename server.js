@@ -43,9 +43,20 @@ function checkAccountExists(client, username, email, callback) {
   });
 }
 
-//ToDo: Implement this helper function
-function recursiveGetSessionKey() {
-
+function recursiveGetSessionKey(client) {
+  //Get a random session key from 0 to 999999
+  key = Math.floor(Math.random() * 1000000);
+  //Check if already in use
+  client.query("SELECT * FROM sessionids WHERE sessionkey = " + key + ";", (error, result) => {
+    client.end().then(() => {
+      //If not in use, return. Otherwise, do a recursion.
+      if (result.rowCount == 0) {
+        return key;
+      } else {
+        return recursiveGetSessionKey(client);
+      }
+    });
+  });
 }
 
 app.use((req, res, next) => {
@@ -121,29 +132,10 @@ app.get('/api/getAuthenticateUser', (req, res) => {
             key: -1
           });
         }
-        //Authentication success, return session key. Loop until gotten unused key.
-        //ToDo: Change this loop into recursion
-        while (success) {
-          //Get a random session key from 0 to 999999
-          key = Math.floor(Math.random() * 1000000);
-          //Check if already in use
-          client.query("SELECT * FROM sessionids WHERE sessionkey = " + key + ";", (error, result) => {
-            console.log("CHECKING SESSION KEYS");
-            if (error) {
-              console.log(error);
-            }
-            client.end().then(() => {
-              //If not in use, give to user. Otherwise, loop.
-              if (result.rowCount == 0) {
-                console.log(key);
-                res.json({
-                  key: key
-                });
-                success = false;
-              }
-            });
-          });
-        }
+        //Authentication success, return session key.
+        res.json({
+          key: recursiveGetSessionKey(client)
+        });
         client.end();
       });
     }
