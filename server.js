@@ -131,12 +131,13 @@ app.get('/api/getAuthenticateUser', (req, res) => {
           res.json({
             key: -1
           });
+        } else {
+          //Authentication success, return session key.
+          res.json({
+            key: recursiveGetSessionKey(client)
+          });
+          client.end();
         }
-        //Authentication success, return session key.
-        res.json({
-          key: recursiveGetSessionKey(client)
-        });
-        client.end();
       });
     }
   )
