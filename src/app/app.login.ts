@@ -41,9 +41,11 @@ import { ApiService } from './api.service';
 })
 
 export class LoginComponent {
-  constructor(private cookieService: CookieService, private api: ApiService) { }
+  constructor(private cookieService: CookieService, private api: ApiService) {}
 
   title = 'Login';
+  username = "";
+  password = "";
   submissionForm = new FormGroup({
     username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
@@ -53,10 +55,9 @@ export class LoginComponent {
     //this.cookieService.set('test1', 'test2', 1);
     //console.log(this.cookieService.get('test1'));
     //this.cookieService.delete('test1');
-    this.api.authenticateLogin({
-      username: this.submissionForm.value.username, 
-      password:  this.submissionForm.value.password
-    }).subscribe(data => {
+    this.username = this.submissionForm.value.username || '';
+    this.password = this.submissionForm.value.password || '';
+    this.api.authenticateLogin(this.username, this.password).subscribe(data => {
         console.log(data);
     })
   }

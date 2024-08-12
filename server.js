@@ -127,7 +127,6 @@ app.get('/api/getAuthenticateUser', (req, res) => {
         }
         //Failure, return -1 (Failure signal)
         if (!success) {
-          console.log("AUTHENTICATION FAILED");
           res.json({
             key: -1
           });

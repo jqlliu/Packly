@@ -15,8 +15,8 @@ export class ApiService{
         return this.http.get("http://localhost:3000/api/getAccountData", {params: new HttpParams().set("id", id)});
     }
     //Authenticate User, and attempt to return a session key
-    authenticateLogin(fd: any){
-        return this.http.get("http://localhost:3000/api/getAuthenticateUser", fd);
+    authenticateLogin(username: string, password: string){
+        return this.http.get("http://localhost:3000/api/getAuthenticateUser", {params: new HttpParams().set("username", username).set("password", password)});
     }
     //Check account information and return a session id (for authentication)
     checkAccount(username: string, password: string){
