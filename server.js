@@ -129,11 +129,14 @@ app.get('/api/getAuthenticateUser', (req, res) => {
         }
         //Failure, return -1 (Failure signal)
         if (!success) {
+          console.log("AUTHENTICATION FAILED")
           res.json({
             key: -1
           });
+          client.end();
         } else {
           //Authentication success, return session key.
+          console.log("AUTHENTICATION SUCCEEDED")
           const temp = recursiveGetSessionKey(client);
           client.end().then(() =>{
             res.json({
