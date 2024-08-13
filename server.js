@@ -47,8 +47,10 @@ function recursiveGetSessionKey(client) {
   //Get a random session key from 0 to 999999
   key = Math.floor(Math.random() * 1000000);
   //Check if already in use
+  console.log(key);
   client.query("SELECT * FROM sessionids WHERE sessionkey = " + key + ";", (error, result) => {
     if (error) {
+      console.log("ERROR GETTING QUERYING SESSIONIDS");
       console.log(error);
       return -1;
     }
@@ -139,6 +141,7 @@ app.get('/api/getAuthenticateUser', (req, res) => {
           console.log("AUTHENTICATION SUCCEEDED")
           const temp = recursiveGetSessionKey(client);
           client.end().then(() =>{
+            console.log("CLIENT ENDED");
             res.json({
               key: temp
             });
