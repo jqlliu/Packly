@@ -49,6 +49,11 @@ function recursiveGetSessionKey(client) {
   //Check if already in use
   client.query("SELECT * FROM sessionids WHERE sessionkey = " + key + ";", (error, result) => {
     client.end().then(() => {
+      //ToDo: This errors every time. Pls fix
+      if (error) {
+        console.log(error);
+        return -1;
+      }
       //If not in use, return. Otherwise, do a recursion.
       if (result.rowCount == 0) {
         return key;
