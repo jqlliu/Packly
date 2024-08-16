@@ -47,10 +47,8 @@ function recursiveGetSessionKey(client, callback) {
   //Get a random session key from 0 to 999999
   key = Math.floor(Math.random() * 1000000);
   //Check if already in use
-  console.log(key);
   client.query("SELECT * FROM sessionids WHERE sessionkey = " + key + ";", (error, result) => {
     if (error) {
-      console.log("ERROR GETTING QUERYING SESSIONIDS");
       console.log(error);
       return -1;
     }
@@ -86,7 +84,6 @@ app.get('/api/getAccountData', (req, res) => {
   const client = new Client(pgConfig);
   client.connect().then(
     () => {
-
       client.query("SELECT * FROM accounts WHERE id = " + req.query.id + ";", (error, result) => {
         if (error) {
           console.log(error);
@@ -133,26 +130,22 @@ app.get('/api/getAuthenticateUser', (req, res) => {
         }
         //Failure, return -1 (Failure signal)
         if (!success) {
-          console.log("AUTHENTICATION FAILED")
           res.json({
             key: -1
           });
           client.end();
         } else {
           //Authentication success, return session key.
-          console.log("AUTHENTICATION SUCCEEDED")
 
           function endClient(t){
-            client.end().then(() =>{
-              console.log("CLIENT ENDED");
+            client.end().then(() => {
               res.json({
                 key: t
               });
             });
           }
 
-          recursiveGetSessionKey(client,endClient );
-          
+          recursiveGetSessionKey(client, endClient);
         }
       });
     }
