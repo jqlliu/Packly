@@ -52,13 +52,13 @@ export class LoginComponent {
   })
 
   login() {
-    //this.cookieService.set('test1', 'test2', 1);
-    //console.log(this.cookieService.get('test1'));
-    //this.cookieService.delete('test1');
     this.username = this.submissionForm.value.username || '';
     this.password = this.submissionForm.value.password || '';
-    this.api.authenticateLogin(this.username, this.password).subscribe(data => {
-        console.log(data);
+    this.api.authenticateLogin(this.username, this.password).subscribe((data: any) => {
+      this.cookieService.set('sessionKey', data.key, 1);
+      console.log(this.cookieService.get('sessionKey'));
+      this.cookieService.delete('sessionKey');
+      console.log(this.cookieService.get('sessionKey'));
     })
   }
 }
