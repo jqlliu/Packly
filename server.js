@@ -43,7 +43,7 @@ function checkAccountExists(client, username, email, callback) {
   });
 }
 
-function recursiveGetSessionKey(client) {
+function recursiveGetSessionKey(client, callback) {
   //Get a random session key from 0 to 999999
   key = Math.floor(Math.random() * 1000000);
   //Check if already in use
@@ -56,7 +56,9 @@ function recursiveGetSessionKey(client) {
     }
     //If not in use, return. Otherwise, do a recursion.
     if (result.rowCount == 0) {
-      return key;
+      client.end().then(() => {
+        callback(key);
+      })
     } else {
       return recursiveGetSessionKey(client);
     }
@@ -139,13 +141,18 @@ app.get('/api/getAuthenticateUser', (req, res) => {
         } else {
           //Authentication success, return session key.
           console.log("AUTHENTICATION SUCCEEDED")
-          const temp = recursiveGetSessionKey(client);
-          client.end().then(() =>{
-            console.log("CLIENT ENDED");
-            res.json({
-              key: temp
+
+          function endClient(t){
+            client.end().then(() =>{
+              console.log("CLIENT ENDED");
+              res.json({
+                key: t
+              });
             });
-          })
+          }
+
+          recursiveGetSessionKey(client,endClient );
+          
         }
       });
     }
