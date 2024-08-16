@@ -43,7 +43,7 @@ function checkAccountExists(client, username, email, callback) {
   });
 }
 
-function recursiveGetSessionKey(client, callback) {
+function recursiveGetSessionKey(id, client, callback) {
   //Get a random session key from 0 to 999999
   key = Math.floor(Math.random() * 1000000);
   //Check if already in use
@@ -54,7 +54,7 @@ function recursiveGetSessionKey(client, callback) {
     }
     //If not in use, return. Otherwise, do a recursion.
     if (result.rowCount == 0) {
-      client.query("INSERT INTO sessionids (sessionkey, id) VALUES ('" + key + "', " + 1 + ");", (error, result) => {
+      client.query("INSERT INTO sessionids (sessionkey, id) VALUES ('" + key + "', " + id + ");", (error, result) => {
         if (error) {
           console.log(error);
         }
@@ -131,6 +131,7 @@ app.get('/api/getAuthenticateUser', (req, res) => {
         for (let i = 0; i < result.rowCount; i++) {
           if (result.rows[i].password == req.query.password) {
             success = true;
+            idUpload = result.rows[i].id;
           }
         }
         //Failure, return -1 (Failure signal)
@@ -150,7 +151,7 @@ app.get('/api/getAuthenticateUser', (req, res) => {
             });
           }
 
-          recursiveGetSessionKey(client, endClient);
+          recursiveGetSessionKey(idUpload, client, endClient);
         }
       });
     }
