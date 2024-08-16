@@ -54,9 +54,14 @@ function recursiveGetSessionKey(client, callback) {
     }
     //If not in use, return. Otherwise, do a recursion.
     if (result.rowCount == 0) {
-      client.end().then(() => {
-        callback(key);
-      })
+      client.query("INSERT INTO sessionids (sessionkey, id) VALUES ('" + key + "', " + 1 + ");", (error, result) => {
+        if (error) {
+          console.log(error);
+        }
+        client.end().then(() => {
+          callback(key);
+        })
+      });
     } else {
       return recursiveGetSessionKey(client);
     }
