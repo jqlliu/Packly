@@ -1,3 +1,4 @@
+const { log } = require("@angular-devkit/build-angular/src/builders/ssr-dev-server");
 const express = require("express");
 const session = require("express-session");
 //const bodyparser = require("body-parse");
@@ -49,6 +50,31 @@ function checkAccountExists(client, username, email, callback) {
   });
 }
 
+function recursiveGetSessionKey(id, client, callback) {
+  //Get a random session key from 0 to 999999
+  key = Math.floor(Math.random() * 1000000);
+  //Check if already in use
+  client.query("SELECT * FROM sessionids WHERE sessionkey = " + key + ";", (error, result) => {
+    if (error) {
+      console.log(error);
+      return -1;
+    }
+    //If not in use, return. Otherwise, do a recursion.
+    if (result.rowCount == 0) {
+      client.query("INSERT INTO sessionids (sessionkey, id) VALUES ('" + key + "', " + id + ");", (error, result) => {
+        if (error) {
+          console.log(error);
+        }
+        client.end().then(() => {
+          callback(key);
+        })
+      });
+    } else {
+      return recursiveGetSessionKey(client);
+    }
+  }
+}
+               
 function createInventory(client, username, callback) {
   client.query("SELECT * FROM accounts WHERE username = '" + username + "';", (err, result) => {
     if (err) {
@@ -81,7 +107,6 @@ app.get('/api/getAccountData', (req, res) => {
   const client = new Client(pgConfig);
   client.connect().then(
     () => {
-
       client.query("SELECT * FROM accounts WHERE id = " + req.query.id + ";", (error, result) => {
         if (error) {
           console.log(error);
@@ -103,6 +128,52 @@ app.get('/api/getAccountData', (req, res) => {
     }
   );
 
+});
+
+//CREATE TABLE sessionids (sessionkey INT, id INT);
+
+//Given a login, return a session key if valid, and upload the session key to the database
+app.get('/api/getAuthenticateUser', (req, res) => {
+  const client = new Client(pgConfig);
+  client.connect().then(
+    () => {
+      //Authenticate user
+      success = false;
+      //Query the Database
+      client.query("SELECT * FROM accounts WHERE username = '" + req.query.username + "';", (error, result) => {
+        //If error, log
+        if (error) {
+          console.log(error);
+        }
+        //Check for successful authentication
+        for (let i = 0; i < result.rowCount; i++) {
+          if (result.rows[i].password == req.query.password) {
+            success = true;
+            idUpload = result.rows[i].id;
+          }
+        }
+        //Failure, return -1 (Failure signal)
+        if (!success) {
+          res.json({
+            key: -1
+          });
+          client.end();
+        } else {
+          //Authentication success, return session key.
+
+          function endClient(t){
+            client.end().then(() => {
+              res.json({
+                key: t
+              });
+            });
+          }
+
+          recursiveGetSessionKey(idUpload, client, endClient);
+        }
+      });
+    }
+  )
 });
 
 //Given account info create new account

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { ApiService } from './api.service';
 
 //This is a comment
 @Component({
@@ -34,17 +36,29 @@ import { RouterLink } from '@angular/router';
 `,
   standalone: true,
   imports: [ FormsModule, ReactiveFormsModule, RouterLink],
+  providers: [CookieService],
   styleUrl: './app.component.css'
 })
 
 export class LoginComponent {
+  constructor(private cookieService: CookieService, private api: ApiService) {}
+
   title = 'Login';
+  username = "";
+  password = "";
   submissionForm = new FormGroup({
     username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
   })
 
   login() {
-    console.log(this.submissionForm.value.username + " " + this.submissionForm.value.password)
+    this.username = this.submissionForm.value.username || '';
+    this.password = this.submissionForm.value.password || '';
+    this.api.authenticateLogin(this.username, this.password).subscribe((data: any) => {
+      this.cookieService.set('sessionKey', data.key, 1);
+      console.log(this.cookieService.get('sessionKey'));
+      //this.cookieService.delete('sessionKey');
+      //console.log(this.cookieService.get('sessionKey'));
+    })
   }
 }
