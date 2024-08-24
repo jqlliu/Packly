@@ -72,7 +72,7 @@ function recursiveGetSessionKey(id, client, callback) {
     } else {
       return recursiveGetSessionKey(client);
     }
-  }
+  });
 }
                
 function createInventory(client, username, callback) {
