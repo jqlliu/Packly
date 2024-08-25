@@ -5,7 +5,7 @@ import { OnInit } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 //MODULES:
 //Front: Angular 18, Tailwind
-//Back: Node.js with: express, express-session, 
+//Back: Node.js with: express, express-session, ngx-cookie-service,
 //DB: PGSQL
 
 

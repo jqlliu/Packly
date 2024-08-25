@@ -33,6 +33,9 @@ function getAccountInfo(field) {
 //UPDATE inventory SET inventory [i] = inventory [i] + 1 WHERE id = 1;
 
 
+//CREATE TABLE sessionids (sessionkey INT, id INT);
+
+
 //TRUNCATE accounts;
 //TRUNCATE inventory;
 
@@ -129,8 +132,6 @@ app.get('/api/getAccountData', (req, res) => {
   );
 
 });
-
-//CREATE TABLE sessionids (sessionkey INT, id INT);
 
 //Given a login, return a session key if valid, and upload the session key to the database
 app.get('/api/getAuthenticateUser', (req, res) => {
