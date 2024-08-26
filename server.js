@@ -223,6 +223,16 @@ app.post('/api/postAccountData', (req, res) => {
 
 });
 
+//Provided a given session key, delete it from the database
+app.delete('/api/deleteSessionKey', (req, res) => {
+  const client = new Client(pgConfig);
+  client.query("DELETE FROM sessionids WHERE sessionkey = " + req.query.key + ";", (error, result) => {
+    if (error) {
+      console.log(error);
+    }
+  });
+});
+
 app.listen(3000, () => {
   console.log("LISTENING");
 })
