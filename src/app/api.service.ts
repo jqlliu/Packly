@@ -22,6 +22,10 @@ export class ApiService{
     checkAccount(username: string, password: string){
         return this.http.get("http://localhost:3000/api/checkAccountData", {params: new HttpParams().set("username", username).set("password", password)});
     }
+    //Provided a session key, delete it from the database
+    deleteSessionKey(key: number){
+        return this.http.get("http://localhost:3000/api/deleteSessionKey", {params: new HttpParams().set("key", key)});
+    }
     //Attempt to create a new account
     postAccount(fd: any){
         return this.http.post("http://localhost:3000/api/postAccountData", fd);
