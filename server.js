@@ -243,7 +243,7 @@ app.delete('/api/deleteSessionKey', (req, res) => {
 //Given a filename, send the asked for file to client
 app.get('/api/:file', (req, res) => {
   const file = req.params.file;
-  res.sendFile(path.join(__dirname, 'secureImgs', file));
+  res.sendFile(path.join(__dirname, 'secureImgs', `${file}`));
 });
 
 app.listen(3000, () => {
