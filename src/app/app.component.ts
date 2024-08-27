@@ -4,8 +4,8 @@ import { ApiService } from './api.service';
 import { OnInit } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 //MODULES:
-//Front: Angular 18, Tailwind
-//Back: Node.js with: express, express-session, ngx-cookie-service,
+//Front: Angular 18, Tailwind, ngx-cookie-service
+//Back: Node.js with: express, express-session, path,
 //DB: PGSQL
 
 

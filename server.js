@@ -1,5 +1,6 @@
 const { log } = require("@angular-devkit/build-angular/src/builders/ssr-dev-server");
 const express = require("express");
+const path = require('path');
 const session = require("express-session");
 //const bodyparser = require("body-parse");
 const app = express();
@@ -231,6 +232,12 @@ app.delete('/api/deleteSessionKey', (req, res) => {
       console.log(error);
     }
   });
+});
+
+//Given a filename, send the asked for file to client
+app.get('/api/:file', (req, res) => {
+  const file = req.params.file;
+  res.sendFile(path.join(__dirname, 'secureImgs', file));
 });
 
 app.listen(3000, () => {
