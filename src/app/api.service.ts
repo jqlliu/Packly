@@ -28,7 +28,7 @@ export class ApiService{
     }
     //Provided a string, retrive the file
     getImage(file: string){
-        return this.http.get("http://localhost:3000/api/${file}", {params: new HttpParams().set("file", file)});
+        return this.http.get("http://localhost:3000/api/${file}", { responseType: 'blob' });
     }
     //Attempt to create a new account
     postAccount(fd: any){
