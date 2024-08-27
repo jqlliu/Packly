@@ -26,6 +26,10 @@ export class ApiService{
     deleteSessionKey(key: number){
         return this.http.get("http://localhost:3000/api/deleteSessionKey", {params: new HttpParams().set("key", key)});
     }
+    //Provided a string, retrive the file
+    getImage(file: string){
+        return this.http.get("http://localhost:3000/api/${file}", {params: new HttpParams().set("file", file)});
+    }
     //Attempt to create a new account
     postAccount(fd: any){
         return this.http.post("http://localhost:3000/api/postAccountData", fd);
