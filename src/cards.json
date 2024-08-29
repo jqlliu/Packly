@@ -1,0 +1,20 @@
+{
+"1": {
+    "name": "Jailor",
+    "description": "During the Day, you may choose one person to Jail for the Night.",
+    "rarity": 5,
+    "image": "BambooTP.jpg"
+},
+"2": {
+    "name": "Baker",
+    "description": "Choose a player to Feed Bread to each Night.",
+    "rarity": 2,
+    "image": "BambooTP.jpg"
+},
+"3": {
+    "name": "Coven Leader",
+    "description": "With the Necronomicon, you may choose to Attack someone each Night. You may choose to Retrain another Coven member or yourself.",
+    "rarity": 4,
+    "image": "BambooTP.jpg"
+}
+}
