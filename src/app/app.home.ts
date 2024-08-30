@@ -15,11 +15,14 @@ import { ApiService } from './api.service';
   <div *ngIf="card">
     <p>{{ card.name }} {{ card.description }} {{ card.rarity }}</p>
   </div>
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
-    <div class="bg-white shadow-md rounded-lg overflow-hidden" *ngFor="let card of cards">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4" *ngIf="cardData">
+    <div class="bg-white shadow-md rounded-lg overflow-hidden" *ngFor="let id of numberArray(3)">
       <img [src]="image">
       <div>
-        <p>{{ card }} ITS ME WARIO</p>
+        <p>{{ id + 1 }}</p>
+        <div *ngIf="cardData[id + 1]">
+          {{ cardData[id + 1].name }}
+        </div>
       </div>
     </div>
   </div>
@@ -78,11 +81,16 @@ export class HomeComponent {
   title = 'Home';
   image: string | ArrayBuffer | null | undefined = null;
   card: any;
-  cards = [3, 4, 5];
+  cardCount = [3, 4, 5];
+  cardData: any[] = [];
+  i = 0
 
   constructor(private apiService: ApiService) {
     this.fetchImage("bambooTP.jpg");
     this.getCardData("1");
+    for (this.i = 0; this.i < this.cardCount.length; this.i++) {
+      this.setCardData(this.i.toString());
+    }
   }
 
   //Test getImage
@@ -102,5 +110,17 @@ export class HomeComponent {
         this.card = data;
       }
     );
+  }
+
+  //Set card data
+  setCardData(id: string) {
+    this.apiService.getCardData(id).subscribe((data) => {
+      this.cardData.push(data);
+    });
+  }
+
+  //I stole this from the internet lol
+  numberArray(length: number): number[] {
+    return Array.from({ length }, (_, i) => i);
   }
 }
