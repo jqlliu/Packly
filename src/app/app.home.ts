@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { ApiService } from './api.service';
+import { firstValueFrom } from 'rxjs';
 
 //This is a comment
 @Component({
@@ -88,9 +89,7 @@ export class HomeComponent {
   constructor(private apiService: ApiService) {
     this.fetchImage("bambooTP.jpg");
     this.getCardData("1");
-    for (this.i = 0; this.i < this.cardCount.length; this.i++) {
-      this.setCardData(this.i.toString());
-    }
+    this.setAllCardData();
   }
 
   //Test getImage
@@ -114,9 +113,16 @@ export class HomeComponent {
 
   //Set card data
   setCardData(id: string) {
-    this.apiService.getCardData(id).subscribe((data) => {
+    return firstValueFrom(this.apiService.getCardData(id)).then((data) => {
       this.cardData.push(data);
     });
+  }
+
+  //setAllCardData
+  async setAllCardData() {
+    for (this.i = 0; this.i < this.cardCount.length; this.i++) {
+      await this.setCardData(this.i.toString());
+    }
   }
 
   //I stole this from the internet lol
