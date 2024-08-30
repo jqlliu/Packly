@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { ApiService } from './api.service';
 
@@ -11,6 +12,9 @@ import { ApiService } from './api.service';
     Welcome to Packly! Check in daily to get some Coins from the daily chest! Use your Coins to buy packs of cards, which give you a random assortment of cards, based off of the pack. You can also trade these cards with other users in the 'Trade' tab, and see your collection in the 'Your Items' tab. Of course, you'll need to login to start. Make an account now by pressing the 'Login' tab!
   </div>
   <img [src]="image"/>
+  <div *ngIf="card">
+    <p>{{ card.name }} {{ card.description }} {{ card.rarity }}</p>
+  </div>
   <div class = "flex w-full">
     <ul class="overflow-x-auto break-words w-1/2 rounded-lg border-2 border-black-500 px-4 py-2 mx-2 flex space-x-4">
       <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
@@ -56,7 +60,8 @@ import { ApiService } from './api.service';
   </div>
 `,
   standalone: true,
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  imports: [ CommonModule] 
 })
 
 
@@ -64,9 +69,11 @@ import { ApiService } from './api.service';
 export class HomeComponent {
   title = 'Home';
   image: string | ArrayBuffer | null | undefined = null;
+  card: any;
 
   constructor(private apiService: ApiService) {
     this.fetchImage("bambooTP.jpg");
+    this.getCardData("1");
   }
 
   //Test getImage
@@ -78,5 +85,13 @@ export class HomeComponent {
       };
       reader.readAsDataURL(data);
     });
+  }
+
+  //Test getCardData
+  getCardData(id: string) {
+    this.apiService.getCardData(id).subscribe((data) => {
+        this.card = data;
+      }
+    );
   }
 }
