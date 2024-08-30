@@ -30,9 +30,12 @@ export class ApiService{
     getImage(file: string){
         return this.http.get(`http://localhost:3000/api/${file}`, { responseType: 'blob' });
     }
+    //Provided a string, retrive the file
+    getCardData(id: string){
+        return this.http.get(`http://localhost:3000/api/card/${id}`);
+    }
     //Attempt to create a new account
     postAccount(fd: any){
         return this.http.post("http://localhost:3000/api/postAccountData", fd);
     }
-
 }
