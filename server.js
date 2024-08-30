@@ -247,6 +247,13 @@ app.get('/api/:file', (req, res) => {
   res.sendFile(path.join(__dirname, 'secureImgs', `${file}`));
 });
 
+//Given an id, return the required card info
+app.get('/api/card/:id', (req, res) => {
+  fileSystem.readFile(path.join(__dirname, 'cardData', 'cards.json'), 'utf8', (err, data) => {
+    res.json(JSON.parse(data)[req.params.id]);
+  });
+});
+
 app.listen(3000, () => {
   console.log("LISTENING");
 })
