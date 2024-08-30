@@ -15,6 +15,14 @@ import { ApiService } from './api.service';
   <div *ngIf="card">
     <p>{{ card.name }} {{ card.description }} {{ card.rarity }}</p>
   </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
+    <div class="bg-white shadow-md rounded-lg overflow-hidden" *ngFor="let card of cards">
+      <img [src]="image">
+      <div>
+        <p>{{ card }} ITS ME WARIO</p>
+      </div>
+    </div>
+  </div>
   <div class = "flex w-full">
     <ul class="overflow-x-auto break-words w-1/2 rounded-lg border-2 border-black-500 px-4 py-2 mx-2 flex space-x-4">
       <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
@@ -70,6 +78,7 @@ export class HomeComponent {
   title = 'Home';
   image: string | ArrayBuffer | null | undefined = null;
   card: any;
+  cards = [3, 4, 5];
 
   constructor(private apiService: ApiService) {
     this.fetchImage("bambooTP.jpg");
