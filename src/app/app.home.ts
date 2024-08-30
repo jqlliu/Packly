@@ -19,9 +19,9 @@ import { ApiService } from './api.service';
     <div class="bg-white shadow-md rounded-lg overflow-hidden" *ngFor="let id of numberArray(3)">
       <img [src]="image">
       <div>
-        <p>{{ id + 1 }}</p>
-        <div *ngIf="cardData[id + 1]">
-          {{ cardData[id + 1].name }}
+        <p>{{ id }}</p>
+        <div *ngIf="cardData[id]">
+          {{ cardData[id].name }}
         </div>
       </div>
     </div>
