@@ -16,5 +16,17 @@
     "description": "With the Necronomicon, you may choose to Attack someone each Night. You may choose to Retrain another Coven member or yourself.",
     "rarity": 4,
     "image": "BambooTP.jpg"
+},
+"3": {
+    "name": "Jester",
+    "description": "Trick the town into voting against you.",
+    "rarity": 3,
+    "image": "BambooTP.jpg"
+},
+"3": {
+    "name": "Executioner",
+    "description": "Choose a target at Night to visit marking them as your target.",
+    "rarity": 3,
+    "image": "BambooTP.jpg"
 }
 }
