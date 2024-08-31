@@ -17,7 +17,7 @@ import { firstValueFrom } from 'rxjs';
     <p>{{ card.name }} {{ card.description }} {{ card.rarity }}</p>
   </div>
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4" *ngIf="cardData">
-    <div class="bg-white shadow-md rounded-lg overflow-hidden" *ngFor="let id of numberArray(3)">
+    <div class="bg-white border-2 border-black-500 rounded-lg overflow-hidden" *ngFor="let id of numberArray(3)">
       <img [src]="image">
       <div>
         <p>{{ id }}</p>
@@ -73,7 +73,7 @@ import { firstValueFrom } from 'rxjs';
 `,
   standalone: true,
   styleUrl: './app.component.css',
-  imports: [ CommonModule] 
+  imports: [ CommonModule ] 
 })
 
 
