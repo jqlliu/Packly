@@ -20,7 +20,7 @@ import { CommonModule } from '@angular/common';
   </select>
   </div>
   </div>
-  <div class="rounded-lg border-2 border-black-500">
+  <div class="rounded-lg border-2 border-black-500 mx-4">
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-9 gap-6 p-4" *ngIf="loaded">
       <div class="bg-white border-2 rounded-lg overflow-hidden relative group" *ngFor="let id of numberArray(8)"
       [ngClass]="{
