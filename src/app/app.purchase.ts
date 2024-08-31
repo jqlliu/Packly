@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
@@ -6,104 +7,21 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-purchase',
   template: `
   <p class = "flex flex-col items-center align-middle px-auto py-2">Category A</p>
-  <ul class="overflow-x-auto break-words max-w-max rounded-lg border-2 border-black-500 px-4 py-2 mx-2 flex space-x-4">
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 1
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 2
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 3
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 4
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 5
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 6
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 7
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 8
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 9
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 10
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 11
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 12
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 13
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 14
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 15
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 16
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 17
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 18
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 19
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 20
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 21
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 22
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 23
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 24
-    </li>
-  </ul>
+  <div class="overflow-x-auto break-words max-w-max rounded-lg border-2 border-black-500 px-4 py-2 mx-2 flex space-x-4">
+    <div class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center" *ngFor="let id of numberArray(25)">
+      Pack {{ id + 1 }}
+    </div>
+  </div>
   <p class = "flex flex-col items-center align-middle px-auto py-2">Category B</p>
-  <ul class="overflow-x-auto break-words max-w-max rounded-lg border-2 border-black-500 px-4 py-2 mx-2 flex space-x-4">
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 1
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 2
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 3
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 4
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 5
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Pack 6
-    </li>
-  </ul>
+  <div class="overflow-x-auto break-words max-w-max rounded-lg border-2 border-black-500 px-4 py-2 mx-2 flex space-x-4">
+    <div class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center" *ngFor="let id of numberArray(5)">
+      Pack {{ id + 1 }}
+    </div>
+  </div>
 `,
   standalone: true,
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  imports: [ CommonModule ] 
 })
 
 
@@ -111,4 +29,8 @@ import { RouterOutlet } from '@angular/router';
 export class PurchaseComponent {
   title = 'Purchase';
 
+  //I stole this from the internet lol
+  numberArray(length: number): number[] {
+    return Array.from({ length }, (_, i) => i);
+  }
 }
