@@ -21,12 +21,19 @@ import { CommonModule } from '@angular/common';
   </div>
   </div>
   <div class="rounded-lg border-2 border-black-500">
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-9 gap-6 p-4" *ngIf="cardData">
-      <div class="bg-white border-2 border-black-500 rounded-lg overflow-hidden" *ngFor="let id of numberArray(8)">
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-9 gap-6 p-4" *ngIf="loaded">
+      <div class="bg-white border-2 rounded-lg overflow-hidden relative group" *ngFor="let id of numberArray(8)"
+      [ngClass]="{
+        'border-gray-500': cardData[id].rarity == 1,
+        'border-orange-500': cardData[id].rarity == 2,
+        'border-yellow-500': cardData[id].rarity == 3,
+        'border-red-500': cardData[id].rarity == 4,
+        'border-pink-500': cardData[id].rarity == 5
+      }">
         <img [src]="image">
         <div>
-          <div class = "text-center" *ngIf="cardData[id]">
-            {{ cardData[id].name }}
+          <div class = "text-center opacity-0 group-hover:opacity-100">
+            {{ cardData[id].name }} x{{ cardCount[id] }}
           </div>
         </div>
       </div>
@@ -46,6 +53,7 @@ export class ItemsComponent {
   cardCount = [3, 4, 5, 2, 1, 2, 5, 1];
   cardData: any[] = [];
   i = 0
+  loaded = false;
 
   constructor(private apiService: ApiService) {
     this.fetchImage("bambooTP.jpg");
@@ -74,6 +82,7 @@ export class ItemsComponent {
     for (this.i = 0; this.i < this.cardCount.length; this.i++) {
       await this.setCardData(this.i.toString());
     }
+    this.loaded = true;
   }
 
   //I stole this from the internet lol
