@@ -3,48 +3,48 @@
     "name": "Jailor",
     "description": "During the Day, you may choose one person to Jail for the Night.",
     "rarity": 5,
-    "image": "BambooTP.jpg"
+    "image": "card-1.png"
 },
 "1": {
     "name": "Baker",
     "description": "Choose a player to Feed Bread to each Night.",
     "rarity": 2,
-    "image": "BambooTP.jpg"
+    "image": "card-2.png"
 },
 "2": {
     "name": "Coven Leader",
     "description": "With the Necronomicon, you may choose to Attack someone each Night. You may choose to Retrain another Coven member or yourself.",
     "rarity": 4,
-    "image": "BambooTP.jpg"
+    "image": "card-3.png"
 },
 "3": {
     "name": "Jester",
     "description": "Trick the town into voting against you.",
     "rarity": 3,
-    "image": "BambooTP.jpg"
+    "image": "card-4.png"
 },
 "4": {
     "name": "Executioner",
     "description": "Choose a target at Night to visit marking them as your target.",
     "rarity": 3,
-    "image": "BambooTP.jpg"
+    "image": "card-5.png"
 },
 "5": {
     "name": "Marshal",
     "description": "You may start a during the Voting phase.",
     "rarity": 5,
-    "image": "BambooTP.jpg"
+    "image": "card-6.png"
 },
 "6": {
     "name": "Doomsayer",
     "description": "Select 3 players and guess their roles at Night.",
     "rarity": 3,
-    "image": "BambooTP.jpg"
+    "image": "card-7.png"
 },
 "7": {
     "name": "Medusa",
     "description": "You may choose to Stone Gaze a player each Night.",
     "rarity": 2,
-    "image": "BambooTP.jpg"
+    "image": "card-8.png"
 }
 }
