@@ -25,7 +25,7 @@ import { CommonModule } from '@angular/common';
       <div class="bg-white border-2 border-black-500 rounded-lg overflow-hidden" *ngFor="let id of numberArray(8)">
         <img [src]="image">
         <div>
-          <div *ngIf="cardData[id]">
+          <div class = "text-center" *ngIf="cardData[id]">
             {{ cardData[id].name }}
           </div>
         </div>
