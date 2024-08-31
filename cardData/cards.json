@@ -28,5 +28,23 @@
     "description": "Choose a target at Night to visit marking them as your target.",
     "rarity": 3,
     "image": "BambooTP.jpg"
+},
+"5": {
+    "name": "Marshal",
+    "description": "You may start a during the Voting phase.",
+    "rarity": 5,
+    "image": "BambooTP.jpg"
+},
+"6": {
+    "name": "Doomsayer",
+    "description": "Select 3 players and guess their roles at Night.",
+    "rarity": 3,
+    "image": "BambooTP.jpg"
+},
+"7": {
+    "name": "Medusa",
+    "description": "You may choose to Stone Gaze a player each Night.",
+    "rarity": 2,
+    "image": "BambooTP.jpg"
 }
 }

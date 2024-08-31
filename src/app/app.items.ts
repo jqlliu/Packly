@@ -21,7 +21,7 @@ import { CommonModule } from '@angular/common';
   </div>
   </div>
   <div class="rounded-lg border-2 border-black-500">
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4" *ngIf="cardData">
+    <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-6 p-4" *ngIf="cardData">
       <div class="bg-white border-2 border-black-500 rounded-lg overflow-hidden" *ngFor="let id of numberArray(5)">
         <img [src]="image">
         <div>
