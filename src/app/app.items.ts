@@ -22,10 +22,9 @@ import { CommonModule } from '@angular/common';
   </div>
   <div class="rounded-lg border-2 border-black-500">
     <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-6 p-4" *ngIf="cardData">
-      <div class="bg-white border-2 border-black-500 rounded-lg overflow-hidden" *ngFor="let id of numberArray(5)">
+      <div class="bg-white border-2 border-black-500 rounded-lg overflow-hidden" *ngFor="let id of numberArray(8)">
         <img [src]="image">
         <div>
-          <p>{{ id }}</p>
           <div *ngIf="cardData[id]">
             {{ cardData[id].name }}
           </div>
@@ -44,7 +43,7 @@ import { CommonModule } from '@angular/common';
 export class ItemsComponent {
   title = 'Items';
   image: string | ArrayBuffer | null | undefined = null;
-  cardCount = [3, 4, 5, 2, 1];
+  cardCount = [3, 4, 5, 2, 1, 2, 5, 1];
   cardData: any[] = [];
   i = 0
 
