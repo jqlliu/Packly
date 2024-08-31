@@ -30,7 +30,7 @@ import { CommonModule } from '@angular/common';
         'border-red-500': cardData[id].rarity == 4,
         'border-pink-500': cardData[id].rarity == 5
       }">
-        <img [src]="image">
+        <img [src]="cardImages[id]">
         <div>
           <div class = "text-center opacity-0 group-hover:opacity-100">
             {{ cardData[id].name }} x{{ cardCount[id] }}
@@ -49,14 +49,13 @@ import { CommonModule } from '@angular/common';
 
 export class ItemsComponent {
   title = 'Items';
-  image: string | ArrayBuffer | null | undefined = null;
   cardCount = [3, 4, 5, 2, 1, 2, 5, 1];
   cardData: any[] = [];
+  cardImages: any[] = [];
   i = 0
   loaded = false;
 
   constructor(private apiService: ApiService) {
-    this.fetchImage("bambooTP.jpg");
     this.setAllCardData();
   }
 
@@ -64,7 +63,18 @@ export class ItemsComponent {
     this.apiService.getImage(name).subscribe((data: Blob) => {
       const reader = new FileReader();
       reader.onload = (load) => {
-        this.image = load.target?.result;
+        return load.target?.result;
+      };
+      reader.readAsDataURL(data);
+    });
+  }
+
+  //Set card Image
+  setCardImage(name: string) {
+    return firstValueFrom(this.apiService.getImage(name)).then((data: Blob) => {
+      const reader = new FileReader();
+      reader.onload = (load) => {
+        this.cardImages.push(load.target?.result);
       };
       reader.readAsDataURL(data);
     });
@@ -72,7 +82,7 @@ export class ItemsComponent {
 
   //Set card data
   setCardData(id: string) {
-    return firstValueFrom(this.apiService.getCardData(id)).then((data) => {
+    return firstValueFrom(this.apiService.getCardData(id)).then((data: any) => {
       this.cardData.push(data);
     });
   }
@@ -81,6 +91,7 @@ export class ItemsComponent {
   async setAllCardData() {
     for (this.i = 0; this.i < this.cardCount.length; this.i++) {
       await this.setCardData(this.i.toString());
+      await this.setCardImage(this.cardData[this.i].image);
     }
     this.loaded = true;
   }
