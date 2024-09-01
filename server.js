@@ -91,6 +91,11 @@ function createInventory(client, username, callback) {
   });
 }
 
+function getTime() {
+  const serverTime = new Date();
+  return serverTime;
+}
+
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "http://localhost:4200");
   res.header("Access-Control-Allow-Headers", "Origin, X-reqed-With, Content-Type, Accept");
