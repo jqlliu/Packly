@@ -35,7 +35,7 @@ export class ApiService{
         return this.http.get(`http://localhost:3000/api/card/${id}`);
     }
     //Provided a string, retrive the file
-    getTime(id: string){
+    getTime(){
         return this.http.get("http://localhost:3000/api/getTime");
     }
     //Attempt to create a new account
