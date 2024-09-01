@@ -188,6 +188,11 @@ app.get('/api/getAuthenticateUser', (req, res) => {
   )
 });
 
+//Given a session key, attempt to do a daily login to that user
+app.post('/api/postDailyLogin', (req, res) => {
+  //To Do: Implement this once I figure out where to put the points
+});
+
 //Given account info create new account
 app.post('/api/postAccountData', (req, res) => {
   console.log(req.body);
@@ -231,7 +236,6 @@ app.post('/api/postAccountData', (req, res) => {
     (err) => {
       console.log(err);
     });
-
 });
 
 //Provided a given session key, delete it from the database
