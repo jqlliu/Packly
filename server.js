@@ -132,7 +132,11 @@ app.get('/api/getAccountData', (req, res) => {
       console.log(err);
     }
   );
+});
 
+app.get('/api/getTime', (req, res) => {
+  const serverTime = new Date();
+  res.json({ time: serverTime.toISOString() });
 });
 
 //Given a login, return a session key if valid, and upload the session key to the database
