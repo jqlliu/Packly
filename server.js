@@ -1,6 +1,8 @@
 const { log } = require("@angular-devkit/build-angular/src/builders/ssr-dev-server");
 const express = require("express");
+const path = require('path');
 const session = require("express-session");
+const fileSystem = require("fs");
 //const bodyparser = require("body-parse");
 const app = express();
 
@@ -221,6 +223,35 @@ app.post('/api/postAccountData', (req, res) => {
       console.log(err);
     });
 
+});
+
+//Provided a given session key, delete it from the database
+app.delete('/api/deleteSessionKey', (req, res) => {
+  const client = new Client(pgConfig);
+  client.connect().then(() => {
+    client.query("DELETE FROM sessionids WHERE sessionkey = " + req.query.key + ";", (error, result) => {
+      if (error) {
+        console.log(error);
+      }
+      res.json({
+        success: true,
+      });
+      client.end();
+    });
+  })
+});
+
+//Given a filename, send the asked for file to client
+app.get('/api/:file', (req, res) => {
+  const file = req.params.file;
+  res.sendFile(path.join(__dirname, 'secureImgs', `${file}`));
+});
+
+//Given an id, return the required card info
+app.get('/api/card/:id', (req, res) => {
+  fileSystem.readFile(path.join(__dirname, 'cardData', 'cards.json'), 'utf8', (err, data) => {
+    res.json(JSON.parse(data)[req.params.id]);
+  });
 });
 
 app.listen(3000, () => {

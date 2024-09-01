@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
+import { ApiService } from './api.service';
+import { CommonModule } from '@angular/common';
 
 //This is a comment
 @Component({
@@ -17,88 +20,91 @@ import { RouterOutlet } from '@angular/router';
   </select>
   </div>
   </div>
-  <ul class="overflow-x-auto break-words w-max rounded-lg border-2 border-black-500 px-4 py-2 mx-2 flex space-x-4 grid gap-4 grid-cols-3 md:grid-cols-5 lg:grid-cols-12">
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 1
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 2
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 3
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 4
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 5
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 6
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 7
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 8
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 9
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 10
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 11
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 12
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 13
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 14
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 15
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 16
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 17
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 18
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 19
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 20
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 21
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 22
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 23
-    </li>
-    <li class="inline-block flow-text break-words rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      Item 24
-    </li>
-  </ul>
+  <div class="rounded-lg border-2 border-black-500 mx-4">
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-9 gap-6 p-4" *ngIf="loaded">
+      <div class="bg-white border-2 rounded-lg overflow-hidden relative group" *ngFor="let id of nonZeroIds"
+      [ngClass]="{
+        'border-gray-500': cardData[id].rarity == 1,
+        'border-orange-500': cardData[id].rarity == 2,
+        'border-yellow-500': cardData[id].rarity == 3,
+        'border-red-500': cardData[id].rarity == 4,
+        'border-pink-500': cardData[id].rarity == 5
+      }">
+        <img [src]="cardImages[id]">
+        <div>
+          <div class = "text-center opacity-0 group-hover:opacity-100">
+            {{ cardData[id].name }} x{{ cardCount[id] }}
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
 `,
   standalone: true,
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  imports: [ CommonModule ] 
 })
 
 
 
 export class ItemsComponent {
   title = 'Items';
+  cardCount = [3, 0, 5, 2, 1, 2, 5, 1];
+  cardData: any[] = [];
+  cardImages: any[] = [];
+  nonZeroIds: any[] = [];
+  i = 0
+  loaded = false;
 
+  constructor(private apiService: ApiService) {
+    this.setNonZeroIds();
+    this.setAllCardData();
+  }
+
+  fetchImage(name: string) {
+    this.apiService.getImage(name).subscribe((data: Blob) => {
+      const reader = new FileReader();
+      reader.onload = (load) => {
+        return load.target?.result;
+      };
+      reader.readAsDataURL(data);
+    });
+  }
+
+  //Set card Image
+  setCardImage(name: string) {
+    return firstValueFrom(this.apiService.getImage(name)).then((data: Blob) => {
+      const reader = new FileReader();
+      reader.onload = (load) => {
+        this.cardImages.push(load.target?.result);
+      };
+      reader.readAsDataURL(data);
+    });
+  }
+
+  //Set card data
+  setCardData(id: string) {
+    return firstValueFrom(this.apiService.getCardData(id)).then((data: any) => {
+      this.cardData.push(data);
+    });
+  }
+
+  //setAllCardData
+  async setAllCardData() {
+    for (this.i = 0; this.i < this.cardCount.length; this.i++) {
+      await this.setCardData(this.i.toString());
+      await this.setCardImage(this.cardData[this.i].image);
+    }
+    this.loaded = true;
+  }
+
+  //I stole this from the internet lol
+  numberArray(length: number): number[] {
+    return Array.from({ length }, (_, i) => i);
+  }
+
+  //Code which is mine now
+  setNonZeroIds() {
+    this.nonZeroIds = this.numberArray(this.cardCount.length).filter(id => this.cardCount[id] > 0);
+  }
 }
