@@ -22,7 +22,7 @@ import { CommonModule } from '@angular/common';
   </div>
   <div class="rounded-lg border-2 border-black-500 mx-4">
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-9 gap-6 p-4" *ngIf="loaded">
-      <div class="bg-white border-2 rounded-lg overflow-hidden relative group" *ngFor="let id of numberArray(8)"
+      <div class="bg-white border-2 rounded-lg overflow-hidden relative group" *ngFor="let id of nonZeroIds"
       [ngClass]="{
         'border-gray-500': cardData[id].rarity == 1,
         'border-orange-500': cardData[id].rarity == 2,
@@ -49,13 +49,15 @@ import { CommonModule } from '@angular/common';
 
 export class ItemsComponent {
   title = 'Items';
-  cardCount = [3, 4, 5, 2, 1, 2, 5, 1];
+  cardCount = [3, 0, 5, 2, 1, 2, 5, 1];
   cardData: any[] = [];
   cardImages: any[] = [];
+  nonZeroIds: any[] = [];
   i = 0
   loaded = false;
 
   constructor(private apiService: ApiService) {
+    this.setNonZeroIds();
     this.setAllCardData();
   }
 
@@ -99,5 +101,10 @@ export class ItemsComponent {
   //I stole this from the internet lol
   numberArray(length: number): number[] {
     return Array.from({ length }, (_, i) => i);
+  }
+
+  //Code which is mine now
+  setNonZeroIds() {
+    this.nonZeroIds = this.numberArray(this.cardCount.length).filter(id => this.cardCount[id] > 0);
   }
 }
