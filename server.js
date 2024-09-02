@@ -317,7 +317,7 @@ app.post('/api/postAccountData', postAccountData);
 app.delete('/api/deleteSessionKey', deleteSessionKey);
 
 //Given a filename, send the asked for file to client
-app.get('/api/:file', getFile);
+app.get('/api/file/:file', getFile);
 
 //Given an id, return the required card info
 app.get('/api/card/:id', getCardInfo);
