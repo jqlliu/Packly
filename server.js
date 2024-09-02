@@ -298,18 +298,28 @@ function getCardQuantityArray(req, res){
   const client = new Client(pgConfig);
   client.connect().then(
     () => {
-      client.query("SELECT * FROM inventory WHERE id = " + req.query.id + ";", (error, result) => {
-        if (error) {
-          console.log(error);
-        }
-        client.end().then(() => {
-          console.log('CLOSED');
-          if (result.rowCount > 0) {
-            res.json({
-              inventory: result.rows[0].inventory
+      client.query("SELECT * FROM sessionids WHERE sessionkey = " + req.query.sessionKey + ";", (error, result) => {
+        if (result.rows.length === 0) {
+          //The Provided Session Key isn't in the sessionids Table, get outta here!
+          res.json({
+            inventory: []
+          });
+          client.end();
+        } else {
+          //The Session Key Worked! Give the related inventory
+          userId = result.rows[0].id;
+          client.query("SELECT * FROM inventory WHERE id = " + userId + ";", (error, result) => {
+            if (error) {
+              console.log(error);
+            }
+            client.end().then(() => {
+              console.log('CLOSED');
+              res.json({
+                inventory: result.rows[0].inventory
+              });
             });
-          }
-        });
+          });
+        }
       });
     }
   ).catch(
@@ -363,7 +373,7 @@ app.get('/api/getAuthenticateUser', getAuthenticateUser);
 //Given account info create new account
 app.post('/api/postAccountData', postAccountData);
 
-//Given an id, returns the quantity array for that user
+//Given a Session Key, returns the quantity array for that user
 app.get('/api/getCardQuantityArray', getCardQuantityArray);
 
 //Provided a given session key, delete it from the database
