@@ -207,13 +207,11 @@ app.post('/api/postDailyLogin', (req, res) => {
         userId = result.rows[0].id;
         client.query("SELECT * FROM points WHERE id = " + userId + ";", (error, result) => {
           now = new Date();
-          lastLogin = new Date(result.rows[0].lastLogin);
+          lastLogin = new Date(result.rows[0].lastlogin);
           timeDiff = Math.abs(now - lastLogin) / 36e5;
           console.log(now);
           console.log(lastLogin);
-          console.log(result);
-          console.log(result.rows[0]);
-          console.log(result.rows[0].lastlogin);
+          console.log(timeDiff);
           if (timeDiff < 6) {
             //Too Soon! Come back later!
             res.json({ message: "Time Interval too Short" });
