@@ -194,7 +194,7 @@ app.get('/api/getAuthenticateUser', (req, res) => {
 
 //Given a session key, attempt to do a daily login to that user
 app.post('/api/postDailyLogin', (req, res) => {
-  const dailyPoints = 40;
+  const dailyPoints = 25;
   const client = new Client(pgConfig);
   client.connect().then(
     client.query("SELECT id FROM sessionids WHERE sessionkey = " + req.body.sessionKey + ";", (error, result) => {
