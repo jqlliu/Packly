@@ -16,7 +16,7 @@ export class ApiService{
     }
     //Use a Session Key, and Return that key's inventory
     getInventory(sessionKey: string){
-        return this.http.get("http://localhost:3000/api/getAuthenticateUser", {params: new HttpParams().set("sessionKey", sessionKey)});
+        return this.http.get("http://localhost:3000/api/getCardQuantityArray", {params: new HttpParams().set("sessionKey", sessionKey)});
     }
     //Authenticate User, and attempt to return a session key
     authenticateLogin(username: string, password: string){

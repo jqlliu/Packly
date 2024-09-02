@@ -299,6 +299,7 @@ function getCardQuantityArray(req, res){
   client.connect().then(
     () => {
       client.query("SELECT * FROM sessionids WHERE sessionkey = " + req.query.sessionKey + ";", (error, result) => {
+        console.log("Got Session ID")
         if (result.rows.length === 0) {
           //The Provided Session Key isn't in the sessionids Table, get outta here!
           res.json({
@@ -306,6 +307,7 @@ function getCardQuantityArray(req, res){
           });
           client.end();
         } else {
+          console.log("Give Inventory")
           //The Session Key Worked! Give the related inventory
           userId = result.rows[0].id;
           client.query("SELECT * FROM inventory WHERE id = " + userId + ";", (error, result) => {
@@ -314,6 +316,7 @@ function getCardQuantityArray(req, res){
             }
             client.end().then(() => {
               console.log('CLOSED');
+              console.log("Ressing inventory with " + result.rows[0].inventory);
               res.json({
                 inventory: result.rows[0].inventory
               });
