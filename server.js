@@ -28,8 +28,8 @@ function getAccountInfo(field) {
 //INSERT INTO accounts (username, email, password) VALUES ( a, a, a );
 
 
-//CREATE TABLE points (points INTEGER DEFAULT 0, lastLogin TIMESTAMP, id SERIAL PRIMARY KEY );
-//INSERT INTO points (points, lastLogin) VALUES ( a, a ); //You can use CURRENT_TIMESTAMP for lastLogin
+//CREATE TABLE points (points INTEGER DEFAULT 0, lastlogin TIMESTAMP, id SERIAL PRIMARY KEY );
+//INSERT INTO points (points, lastlogin) VALUES ( a, a ); //You can use CURRENT_TIMESTAMP for lastlogin
 
 
 //CREATE TABLE inventory (inventory INT [] , id INT PRIMARY KEY  );
@@ -197,7 +197,7 @@ app.post('/api/postDailyLogin', (req, res) => {
   const dailyPoints = 25;
   const client = new Client(pgConfig);
   client.connect().then(
-    client.query("SELECT id FROM sessionids WHERE sessionkey = " + req.body.sessionKey + ";", (error, result) => {
+    client.query("SELECT * FROM sessionids WHERE sessionkey = " + req.body.sessionKey + ";", (error, result) => {
       if (result.rows.length === 0) {
         //The Provided Session Key isn't in the sessionids Table, get outta here!
         res.json({ message: "Failure. Session Key does not link to an Account" });
@@ -205,9 +205,15 @@ app.post('/api/postDailyLogin', (req, res) => {
       } else {
         //The Session Key Worked! Check if User got monies less than 6 Hours ago
         userId = result.rows[0].id;
-        client.query("SELECT lastLogin FROM points WHERE id = " + userId + ";", (error, result) => {
-          timeDiff = Math.abs(new Date() - new Date(result.rows[0].lastLogin)) / 36e5;
-          console.log(timeDiff);
+        client.query("SELECT * FROM points WHERE id = " + userId + ";", (error, result) => {
+          now = new Date();
+          lastLogin = new Date(result.rows[0].lastLogin);
+          timeDiff = Math.abs(now - lastLogin) / 36e5;
+          console.log(now);
+          console.log(lastLogin);
+          console.log(result);
+          console.log(result.rows[0]);
+          console.log(result.rows[0].lastlogin);
           if (timeDiff < 6) {
             //Too Soon! Come back later!
             res.json({ message: "Time Interval too Short" });
