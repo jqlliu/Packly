@@ -28,6 +28,10 @@ function getAccountInfo(field) {
 //INSERT INTO accounts (username, email, password) VALUES ( a, a, a );
 
 
+//CREATE TABLE points (points INTEGER DEFAULT 0, lastLogin DATETIME, id SERIAL PRIMARY KEY  );
+//INSERT INTO points (points, lastLogin) VALUES ( a, a ); //You can use CURRENT_TIMESTAMP for lastLogin
+
+
 //CREATE TABLE inventory (inventory INT [] , id INT PRIMARY KEY  );
 //INSERT INTO inventory (inventory) VALUES ( ARRAY []::integer[] , id );
 
