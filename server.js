@@ -194,7 +194,7 @@ app.get('/api/getAuthenticateUser', (req, res) => {
 
 //Given a session key, attempt to do a daily login to that user
 app.post('/api/postDailyLogin', (req, res) => {
-  //To Do: Implement this once I figure out where to put the points
+  console.log("Giving reward to User: " + req.body.sessionKey);
 });
 
 //Given account info create new account
