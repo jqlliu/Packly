@@ -110,11 +110,6 @@ function createInventory(client, username, callback) {
   });
 }
 
-function getTime() {
-  const serverTime = new Date();
-  return serverTime;
-}
-
 function passCORS(req, res, next){
   res.header("Access-Control-Allow-Origin", "http://localhost:4200");
   res.header("Access-Control-Allow-Headers", "Origin, X-reqed-With, Content-Type, Accept");
@@ -147,10 +142,10 @@ function getAccountData(req, res) {
   );
 };
 
-app.get('/api/getTime', (req, res) => {
+function getTime(req, res){
   const serverTime = new Date();
   res.json({ time: serverTime.toISOString() });
-});
+};
 
 function getAuthenticateUser(req, res){
   const client = new Client(pgConfig);
@@ -195,8 +190,7 @@ function getAuthenticateUser(req, res){
   )
 }
 
-//Given a session key, attempt to do a daily login to that user
-app.post('/api/postDailyLogin', (req, res) => {
+function attemptDaily(req, res){
   const dailyPoints = 25;
   const client = new Client(pgConfig);
   client.connect().then(
@@ -226,9 +220,8 @@ app.post('/api/postDailyLogin', (req, res) => {
           });
       }
     }));
-});
+};
 
-//Given account info create new account
 function postAccountData(req, res){
   console.log(req.body);
   const client = new Client(pgConfig);
@@ -328,6 +321,12 @@ app.get('/api/:file', getFile);
 
 //Given an id, return the required card info
 app.get('/api/card/:id', getCardInfo);
+
+//Get whatever the time in the server is
+app.get('/api/getTime', getTime);
+
+//Given a session key, attempt to do a daily login to that user
+app.post('/api/postDailyLogin', attemptDaily);
 
 app.listen(3000, () => {
   console.log("LISTENING");
