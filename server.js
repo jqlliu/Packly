@@ -209,9 +209,6 @@ app.post('/api/postDailyLogin', (req, res) => {
           now = new Date();
           lastLogin = new Date(result.rows[0].lastlogin);
           timeDiff = Math.abs(now - lastLogin) / 36e5;
-          console.log(now);
-          console.log(lastLogin);
-          console.log(timeDiff);
           if (timeDiff < 6) {
             //Too Soon! Come back later!
             res.json({ message: "Time Interval too Short" });
