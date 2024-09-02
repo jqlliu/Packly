@@ -3,6 +3,7 @@ import { RouterOutlet, RouterLink } from '@angular/router';
 import { ApiService } from './api.service';
 import { OnInit } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
 //MODULES:
 //Front: Angular 18, Tailwind, ngx-cookie-service
 //Back: Node.js with: express, express-session, path,
@@ -37,7 +38,7 @@ import { NgOptimizedImage } from '@angular/common';
 
 export class AppComponent implements OnInit {
   title = 'my-app';
-  constructor(private api: ApiService){
+  constructor(private cookieService: CookieService, private apiService: ApiService){
   }
   ngOnInit(): void {
     
