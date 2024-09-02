@@ -205,8 +205,8 @@ app.post('/api/postDailyLogin', (req, res) => {
       } else {
         //The Session Key Worked! Check if User got monies less than 6 Hours ago
         userId = result.rows[0].id;
-        client.query("SELECT lastLogin FROM points WHERE id " + userId + ";", (error, result) => {
-          timeDiff = Math.abs(new Date() - new Date(user.lastLogin)) / 36e5;
+        client.query("SELECT lastLogin FROM points WHERE id = " + userId + ";", (error, result) => {
+          timeDiff = Math.abs(new Date() - new Date(result.rows[0].lastLogin)) / 36e5;
           console.log(timeDiff);
           if (timeDiff < 6) {
             //Too Soon! Come back later!
