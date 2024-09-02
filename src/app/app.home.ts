@@ -19,7 +19,7 @@ import { firstValueFrom } from 'rxjs';
       </div>
     </div>
     <div class = "inline-block flow-text break-words w-1/2 rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      <img Src="../img/Chest.png" alt="Daily Chest" width = "500" height = "500" class = "mx-auto">
+      <img Src="../img/Chest.png" alt="Daily Chest" width = "500" height = "500" class = "mx-auto" (click)="attemptDaily()">
     </div>
   </div>
 `,
@@ -43,8 +43,16 @@ export class HomeComponent {
     return Array.from({ length }, (_, i) => i);
   }
 
+  //Get what time it is from the server
   getServerTime() {
     this.apiService.getTime().subscribe((data: any) => {
+      this.serverTime = data.time;
+    });
+  }
+
+  //Attempt to do the Daily reward by asking the server with the session ID
+  attemptDaily() {
+    this.apiService.attemptDaily().subscribe((data: any) => {
       this.serverTime = data.time;
     });
   }

@@ -44,6 +44,6 @@ export class ApiService{
     }
     //Attempt to do a daily login and gain daily points
     attemptDaily(sessionKey: string){
-        return this.http.post("http://localhost:3000/api/postDailyLogin", {params: new HttpParams().set("sessionKey", sessionKey)});
+        return this.http.post("http://localhost:3000/api/postDailyLogin", { "sessionKey": sessionKey });
     }
 }
