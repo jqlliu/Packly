@@ -60,7 +60,7 @@ function checkAccountExists(client, username, email, callback) {
   });
 }
 
-function deleteSessionKey(sessionKey){
+function serverDeleteSessionKey(sessionKey){
   const client = new Client(pgConfig);
   client.connect().then(() => {
     client.query("DELETE FROM sessionids WHERE sessionkey = " + req.query.key + ";", (error, result) => {
@@ -270,6 +270,7 @@ function postAccountData(req, res){
 function deleteSessionKey(req, res){
   const client = new Client(pgConfig);
   client.connect().then(() => {
+    console.log("DELETEING" + req.query.key);
     client.query("DELETE FROM sessionids WHERE sessionkey = " + req.query.key + ";", (error, result) => {
       if (error) {
         console.log(error);

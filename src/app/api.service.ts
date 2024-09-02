@@ -27,8 +27,9 @@ export class ApiService{
         return this.http.get("http://localhost:3000/api/checkAccountData", {params: new HttpParams().set("username", username).set("password", password)});
     }
     //Provided a session key, delete it from the database
-    deleteSessionKey(key: number){
-        return this.http.get("http://localhost:3000/api/deleteSessionKey", {params: new HttpParams().set("key", key)});
+    deleteSessionKey(sessionKey: number){
+        console.log("Trying to Delete" + sessionKey);
+        return this.http.get("http://localhost:3000/api/deleteSessionKey", {params: new HttpParams().set("sessionKey", sessionKey)});
     }
     //Provided a string, retrive the file
     getImage(file: string){

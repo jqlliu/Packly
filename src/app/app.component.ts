@@ -50,6 +50,7 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
+    console.log("DELETEING" + +this.cookieService.get('sessionKey'));
     this.apiService.deleteSessionKey(+this.cookieService.get('sessionKey'));
     this.cookieService.delete('sessionKey');
   }
