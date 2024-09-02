@@ -27,9 +27,6 @@ function getAccountInfo(field) {
 //CREATE TABLE accounts (username VARCHAR(32), email VARCHAR(256), password VARCHAR(256), id SERIAL PRIMARY KEY  );
 //INSERT INTO accounts (username, email, password) VALUES ( a, a, a );
 
-//CREATE TABLE points (points INTEGER DEFAULT 0, lastlogin TIMESTAMP, id SERIAL PRIMARY KEY );
-//INSERT INTO points (points, lastlogin) VALUES ( a, a ); //You can use CURRENT_TIMESTAMP for lastlogin
-
 
 //CREATE TABLE points (points INTEGER DEFAULT 0, lastlogin TIMESTAMP, id SERIAL PRIMARY KEY );
 //INSERT INTO points (points, lastlogin) VALUES ( a, a ); //You can use CURRENT_TIMESTAMP for lastlogin
@@ -47,6 +44,7 @@ function getAccountInfo(field) {
 
 //TRUNCATE accounts;
 //TRUNCATE inventory;
+
 
 //Some middleware to handle CORS stuff
 
