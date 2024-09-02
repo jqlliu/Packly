@@ -91,24 +91,13 @@ function createInventory(client, username, callback) {
   });
 }
 
-app.use((req, res, next) => {
+function passCORS(req, res, next){
   res.header("Access-Control-Allow-Origin", "http://localhost:4200");
   res.header("Access-Control-Allow-Headers", "Origin, X-reqed-With, Content-Type, Accept");
   next();
-});
+}
 
-app.use("/api/secure", (req, res) => {
-
-});
-
-// app.use(express.urlencoded({
-//   extended: true
-// }));
-
-app.use(express.json());
-
-//Given an id return account information (might switch to checkAccountData or smthing later)
-app.get('/api/getAccountData', (req, res) => {
+function getAccountData(req, res) {
   const client = new Client(pgConfig);
   client.connect().then(
     () => {
@@ -133,10 +122,9 @@ app.get('/api/getAccountData', (req, res) => {
     }
   );
 
-});
+}
 
-//Given a login, return a session key if valid, and upload the session key to the database
-app.get('/api/getAuthenticateUser', (req, res) => {
+function getAuthenticateUser(req, res){
   const client = new Client(pgConfig);
   client.connect().then(
     () => {
@@ -177,10 +165,9 @@ app.get('/api/getAuthenticateUser', (req, res) => {
       });
     }
   )
-});
+}
 
-//Given account info create new account
-app.post('/api/postAccountData', (req, res) => {
+function postAccountData(req, res){
   console.log(req.body);
   const client = new Client(pgConfig);
   //Create function to make a new account
@@ -223,10 +210,9 @@ app.post('/api/postAccountData', (req, res) => {
       console.log(err);
     });
 
-});
+}
 
-//Provided a given session key, delete it from the database
-app.delete('/api/deleteSessionKey', (req, res) => {
+function deleteSessionKey(req, res){
   const client = new Client(pgConfig);
   client.connect().then(() => {
     client.query("DELETE FROM sessionids WHERE sessionkey = " + req.query.key + ";", (error, result) => {
@@ -239,20 +225,48 @@ app.delete('/api/deleteSessionKey', (req, res) => {
       client.end();
     });
   })
-});
+}
 
-//Given a filename, send the asked for file to client
-app.get('/api/:file', (req, res) => {
+function getFile(req, res){
   const file = req.params.file;
   res.sendFile(path.join(__dirname, 'secureImgs', `${file}`));
-});
+}
 
-//Given an id, return the required card info
-app.get('/api/card/:id', (req, res) => {
+function getCardInfo(req, res){
   fileSystem.readFile(path.join(__dirname, 'cardData', 'cards.json'), 'utf8', (err, data) => {
     res.json(JSON.parse(data)[req.params.id]);
   });
+}
+
+app.use(passCORS);
+
+app.use("/api/secure", (req, res) => {
+
 });
+
+// app.use(express.urlencoded({
+//   extended: true
+// }));
+
+app.use(express.json());
+
+//Given an id return account information (might switch to checkAccountData or smthing later)
+app.get('/api/getAccountData', getAccountData);
+
+//Given a login, return a session key if valid, and upload the session key to the database
+app.get('/api/getAuthenticateUser', getAuthenticateUser);
+
+//Given account info create new account
+app.post('/api/postAccountData', postAccountData);
+
+//Provided a given session key, delete it from the database
+app.delete('/api/deleteSessionKey', deleteSessionKey);
+
+//Given a filename, send the asked for file to client
+app.get('/api/:file', getFile);
+
+//Given an id, return the required card info
+app.get('/api/card/:id', getCardInfo);
 
 app.listen(3000, () => {
   console.log("LISTENING");
