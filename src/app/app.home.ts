@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { ApiService } from './api.service';
 import { firstValueFrom } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 //This is a comment
 @Component({
@@ -34,7 +35,7 @@ export class HomeComponent {
   title = 'Home';
   serverTime: string | undefined;
 
-  constructor(private apiService: ApiService) {
+  constructor(private cookieService: CookieService, private apiService: ApiService) {
     this.getServerTime();
   }
 
@@ -52,7 +53,7 @@ export class HomeComponent {
 
   //Attempt to do the Daily reward by asking the server with the session ID
   attemptDaily() {
-    this.apiService.attemptDaily().subscribe((data: any) => {
+    this.apiService.attemptDaily(this.cookieService.get('sessionKey')).subscribe((data: any) => {
       this.serverTime = data.time;
     });
   }
