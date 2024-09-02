@@ -57,8 +57,6 @@ export class LoginComponent {
     this.api.authenticateLogin(this.username, this.password).subscribe((data: any) => {
       this.cookieService.set('sessionKey', data.key, 1);
       console.log(this.cookieService.get('sessionKey'));
-      //this.cookieService.delete('sessionKey');
-      //console.log(this.cookieService.get('sessionKey'));
     })
   }
 }

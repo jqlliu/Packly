@@ -4,6 +4,7 @@ import { ApiService } from './api.service';
 import { OnInit } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
+
 //MODULES:
 //Front: Angular 18, Tailwind, ngx-cookie-service
 //Back: Node.js with: express, express-session, path,
@@ -26,6 +27,7 @@ import { CookieService } from 'ngx-cookie-service';
         <li class = "text-white hover:text-gray-200"><a routerLink="/items">Your items</a></li>
         <li class = "text-white hover:text-gray-200"><a routerLink="/account">Your Account</a></li>
         <li class = "text-white hover:text-gray-200"><a routerLink="/login">Login</a></li>
+        <li class = "text-white hover:text-gray-200" (click)="logout()"><a routerLink="/">Logout</a></li>
       </ul>
     </div>
 </nav>
@@ -40,10 +42,15 @@ export class AppComponent implements OnInit {
   title = 'my-app';
   constructor(private cookieService: CookieService, private apiService: ApiService){
   }
+
   ngOnInit(): void {
-    
     // this.api.getAccountInfo(1).subscribe(data => {
     //   console.log(data);
     // })
+  }
+
+  logout() {
+    this.apiService.deleteSessionKey(+this.cookieService.get('sessionKey'));
+    this.cookieService.delete('sessionKey');
   }
 }
