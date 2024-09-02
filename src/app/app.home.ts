@@ -54,7 +54,7 @@ export class HomeComponent {
   //Attempt to do the Daily reward by asking the server with the session ID
   attemptDaily() {
     this.apiService.attemptDaily(this.cookieService.get('sessionKey')).subscribe((data: any) => {
-      this.serverTime = data.time;
+
     });
   }
 }
