@@ -14,6 +14,10 @@ export class ApiService{
     getAccountInfo(id:number){
         return this.http.get("http://localhost:3000/api/getAccountData", {params: new HttpParams().set("id", id)});
     }
+    //Use a Session Key, and Return that key's inventory
+    getInventory(sessionKey: string){
+        return this.http.get("http://localhost:3000/api/getAuthenticateUser", {params: new HttpParams().set("sessionKey", sessionKey)});
+    }
     //Authenticate User, and attempt to return a session key
     authenticateLogin(username: string, password: string){
         return this.http.get("http://localhost:3000/api/getAuthenticateUser", {params: new HttpParams().set("username", username).set("password", password)});
