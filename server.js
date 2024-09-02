@@ -27,6 +27,9 @@ function getAccountInfo(field) {
 //CREATE TABLE accounts (username VARCHAR(32), email VARCHAR(256), password VARCHAR(256), id SERIAL PRIMARY KEY  );
 //INSERT INTO accounts (username, email, password) VALUES ( a, a, a );
 
+//CREATE TABLE points (points INTEGER DEFAULT 0, lastlogin TIMESTAMP, id SERIAL PRIMARY KEY );
+//INSERT INTO points (points, lastlogin) VALUES ( a, a ); //You can use CURRENT_TIMESTAMP for lastlogin
+
 
 //CREATE TABLE points (points INTEGER DEFAULT 0, lastlogin TIMESTAMP, id SERIAL PRIMARY KEY );
 //INSERT INTO points (points, lastlogin) VALUES ( a, a ); //You can use CURRENT_TIMESTAMP for lastlogin
@@ -140,12 +143,12 @@ function getAccountData(req, res) {
       console.log(err);
     }
   );
-};
+}
 
 function getTime(req, res){
   const serverTime = new Date();
   res.json({ time: serverTime.toISOString() });
-};
+}
 
 function getAuthenticateUser(req, res){
   const client = new Client(pgConfig);
@@ -220,7 +223,7 @@ function attemptDaily(req, res){
           });
       }
     }));
-};
+}
 
 function postAccountData(req, res){
   console.log(req.body);
@@ -264,7 +267,7 @@ function postAccountData(req, res){
     (err) => {
       console.log(err);
     });
-};
+}
 
 function deleteSessionKey(req, res){
   const client = new Client(pgConfig);
@@ -292,6 +295,52 @@ function getCardInfo(req, res){
   });
 }
 
+
+function getCardQuantityArray(req, res){
+  const client = new Client(pgConfig);
+  client.connect().then(
+    () => {
+      client.query("SELECT * FROM inventory WHERE id = " + req.query.id + ";", (error, result) => {
+        if (error) {
+          console.log(error);
+        }
+        client.end().then(() => {
+          console.log('CLOSED');
+          if (result.rowCount > 0) {
+            res.json({
+              inventory: result.rows[0].inventory
+            });
+          }
+        });
+      });
+    }
+  ).catch(
+    (err) => {
+      console.log(err);
+    }
+  );
+}
+//Add amount to card
+function addCardToId(id, amount, i){
+  const client = new Client(pgConfig);
+  client.connect().then(
+    () => {
+      client.query("UPDATE inventory SET inventory [" + i + "] = inventory [" + i + "] + " + amount + " WHERE id = " + id + ";", (error, result) => {
+        if (error) {
+          console.log(error);
+        }
+        client.end().then(() => {
+        });
+      });
+    }
+  ).catch(
+    (err) => {
+      console.log(err);
+    }
+  );
+}
+
+
 app.use(passCORS);
 
 app.use("/api/secure", (req, res) => {
@@ -312,6 +361,9 @@ app.get('/api/getAuthenticateUser', getAuthenticateUser);
 
 //Given account info create new account
 app.post('/api/postAccountData', postAccountData);
+
+//Given a login, return a session key if valid, and upload the session key to the database
+app.get('/api/getCardQuantityArray', getCardQuantityArray);
 
 //Provided a given session key, delete it from the database
 app.delete('/api/deleteSessionKey', deleteSessionKey);
