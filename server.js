@@ -200,7 +200,7 @@ app.post('/api/postDailyLogin', (req, res) => {
     client.query("SELECT id FROM sessionids WHERE sessionkey = " + req.body.sessionKey + ";", (error, result) => {
       if (result.rows.length === 0) {
         //The Provided Session Key isn't in the sessionids Table, get outta here!
-        res.json({ message: "Success. Got Points" });
+        res.json({ message: "Failure. Session Key does not link to an Account" });
         client.end();
       } else {
         //The Session Key Worked! Give em some monies
