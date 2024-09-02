@@ -194,7 +194,18 @@ app.get('/api/getAuthenticateUser', (req, res) => {
 
 //Given a session key, attempt to do a daily login to that user
 app.post('/api/postDailyLogin', (req, res) => {
-  console.log("Giving reward to User: " + req.body.sessionKey);
+  const client = new Client(pgConfig);
+  client.connect().then(
+    client.query("SELECT id FROM sessionids WHERE sessionkey = " + req.body.sessionKey + ";", (error, result) => {
+      if (result.rows.length === 0) {
+        //The Provided Session Key isn't in the sessionids Table, get outta here!
+      } else {
+        //The Session Key Worked! Give em some monies
+        userId = result.rows[0].id;
+        client.query("UPDATE points SET points = points + 10, lastLogin = NOW() WHERE id = " + userId + ";", (error, result) => {
+        });
+      }
+    }));
 });
 
 //Given account info create new account
