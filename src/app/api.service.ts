@@ -28,7 +28,7 @@ export class ApiService{
     }
     //Provided a session key, delete it from the database
     deleteSessionKey(sessionKey: number){
-        return this.http.delete("http://localhost:3000/api/deleteSessionKey", {params: new HttpParams().set("sessionKey", sessionKey)});
+        return this.http.post("http://localhost:3000/api/deleteSessionKey", { "sessionKey": sessionKey });
     }
     //Provided a string, retrive the file
     getImage(file: string){

@@ -270,7 +270,8 @@ function postAccountData(req, res){
 function deleteSessionKey(req, res){
   const client = new Client(pgConfig);
   client.connect().then(() => {
-    client.query("DELETE FROM sessionids WHERE sessionkey = " + req.query.key + ";", (error, result) => {
+    console.log(req.body.sessionKey)
+    client.query("DELETE FROM sessionids WHERE sessionkey = " + req.body.sessionKey + ";", (error, result) => {
       if (error) {
         console.log(error);
       }
@@ -376,7 +377,7 @@ app.post('/api/postAccountData', postAccountData);
 app.get('/api/getCardQuantityArray', getCardQuantityArray);
 
 //Provided a given session key, delete it from the database
-app.delete('/api/deleteSessionKey', deleteSessionKey);
+app.post('/api/deleteSessionKey', deleteSessionKey);
 
 //Given a filename, send the asked for file to client
 app.get('/api/file/:file', getFile);
