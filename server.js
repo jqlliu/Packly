@@ -300,6 +300,9 @@ app.get('/api/getAccountData', getAccountData);
 //Given a login, return a session key if valid, and upload the session key to the database
 app.get('/api/getAuthenticateUser', getAuthenticateUser);
 
+//Given a login, return a session key if valid, and upload the session key to the database
+app.get('/api/getCardQuantityArray', getCardQuantityArray);
+
 //Given account info create new account
 app.post('/api/postAccountData', postAccountData);
 
