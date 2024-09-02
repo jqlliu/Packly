@@ -28,6 +28,10 @@ function getAccountInfo(field) {
 //INSERT INTO accounts (username, email, password) VALUES ( a, a, a );
 
 
+//CREATE TABLE points (points INTEGER DEFAULT 0, lastlogin TIMESTAMP, id SERIAL PRIMARY KEY );
+//INSERT INTO points (points, lastlogin) VALUES ( a, a ); //You can use CURRENT_TIMESTAMP for lastlogin
+
+
 //CREATE TABLE inventory (inventory INT [] , id INT PRIMARY KEY  );
 //INSERT INTO inventory (inventory) VALUES ( ARRAY []::integer[] , id );
 
@@ -91,6 +95,11 @@ function createInventory(client, username, callback) {
   });
 }
 
+function getTime() {
+  const serverTime = new Date();
+  return serverTime;
+}
+
 function passCORS(req, res, next){
   res.header("Access-Control-Allow-Origin", "http://localhost:4200");
   res.header("Access-Control-Allow-Headers", "Origin, X-reqed-With, Content-Type, Accept");
@@ -121,8 +130,12 @@ function getAccountData(req, res) {
       console.log(err);
     }
   );
+});
 
-}
+app.get('/api/getTime', (req, res) => {
+  const serverTime = new Date();
+  res.json({ time: serverTime.toISOString() });
+});
 
 function getAuthenticateUser(req, res){
   const client = new Client(pgConfig);
@@ -167,6 +180,40 @@ function getAuthenticateUser(req, res){
   )
 }
 
+//Given a session key, attempt to do a daily login to that user
+app.post('/api/postDailyLogin', (req, res) => {
+  const dailyPoints = 25;
+  const client = new Client(pgConfig);
+  client.connect().then(
+    client.query("SELECT * FROM sessionids WHERE sessionkey = " + req.body.sessionKey + ";", (error, result) => {
+      if (result.rows.length === 0) {
+        //The Provided Session Key isn't in the sessionids Table, get outta here!
+        res.json({ message: "Failure. Session Key does not link to an Account" });
+        client.end();
+      } else {
+        //The Session Key Worked! Check if User got monies less than 6 Hours ago
+        userId = result.rows[0].id;
+        client.query("SELECT * FROM points WHERE id = " + userId + ";", (error, result) => {
+          now = new Date();
+          lastLogin = new Date(result.rows[0].lastlogin);
+          timeDiff = Math.abs(now - lastLogin) / 36e5;
+          if (timeDiff < 6) {
+            //Too Soon! Come back later!
+            res.json({ message: "Time Interval too Short" });
+            client.end();
+          } else {
+            //Success! Give em some monies!
+            res.json({ message: "Success. Got Points" });
+            client.query("UPDATE points SET points = points + " + dailyPoints + ", lastLogin = NOW() WHERE id = " + userId + ";", (error, result) => {
+              client.end();
+            });
+          }
+          });
+      }
+    }));
+});
+
+//Given account info create new account
 function postAccountData(req, res){
   console.log(req.body);
   const client = new Client(pgConfig);
@@ -209,8 +256,7 @@ function postAccountData(req, res){
     (err) => {
       console.log(err);
     });
-
-}
+});
 
 function deleteSessionKey(req, res){
   const client = new Client(pgConfig);

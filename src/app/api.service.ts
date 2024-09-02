@@ -34,8 +34,16 @@ export class ApiService{
     getCardData(id: string){
         return this.http.get(`http://localhost:3000/api/card/${id}`);
     }
+    //Retrieve time from the server
+    getTime(){
+        return this.http.get("http://localhost:3000/api/getTime");
+    }
     //Attempt to create a new account
     postAccount(fd: any){
         return this.http.post("http://localhost:3000/api/postAccountData", fd);
+    }
+    //Attempt to do a daily login and gain daily points
+    attemptDaily(sessionKey: string){
+        return this.http.post("http://localhost:3000/api/postDailyLogin", { "sessionKey": sessionKey });
     }
 }

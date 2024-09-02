@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { ApiService } from './api.service';
 import { firstValueFrom } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 //This is a comment
 @Component({
@@ -19,7 +20,7 @@ import { firstValueFrom } from 'rxjs';
       </div>
     </div>
     <div class = "inline-block flow-text break-words w-1/2 rounded-lg border-2 border-black-500 px-4 py-2 mx-2 text-center">
-      <img Src="../img/Chest.png" alt="Daily Chest" width = "500" height = "500" class = "mx-auto">
+      <img Src="../img/Chest.png" alt="Daily Chest" width = "500" height = "500" class = "mx-auto" (click)="attemptDaily()">
     </div>
   </div>
 `,
@@ -32,12 +33,33 @@ import { firstValueFrom } from 'rxjs';
 
 export class HomeComponent {
   title = 'Home';
+  serverTime: string | undefined;
 
-  constructor(private apiService: ApiService) {
+  constructor(private cookieService: CookieService, private apiService: ApiService) {
+    this.getServerTime();
   }
 
   //I stole this from the internet lol
   numberArray(length: number): number[] {
     return Array.from({ length }, (_, i) => i);
+  }
+
+  //Get what time it is from the server
+  getServerTime() {
+    this.apiService.getTime().subscribe((data: any) => {
+      this.serverTime = data.time;
+    });
+  }
+
+  //Attempt to do the Daily reward by asking the server with the session ID
+  attemptDaily() {
+    if (this.cookieService.get('sessionKey')) {
+      this.apiService.attemptDaily(this.cookieService.get('sessionKey')).subscribe((data: any) => {
+        console.log(data.message);
+      });
+    } else {
+      //You dont got no sessionKey! Get outta here!
+      console.log("No Session Key, Failed to get Login Reward");
+    }
   }
 }
