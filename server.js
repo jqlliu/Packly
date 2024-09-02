@@ -59,6 +59,21 @@ function checkAccountExists(client, username, email, callback) {
   });
 }
 
+function deleteSessionKey(sessionKey){
+  const client = new Client(pgConfig);
+  client.connect().then(() => {
+    client.query("DELETE FROM sessionids WHERE sessionkey = " + req.query.key + ";", (error, result) => {
+      if (error) {
+        console.log(error);
+      }
+      res.json({
+        success: true,
+      });
+      client.end();
+    });
+  })
+}
+
 function recursiveGetSessionKey(id, client, callback) {
   //Get a random session key from 0 to 999999
   key = Math.floor(Math.random() * 1000000);
