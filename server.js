@@ -200,11 +200,11 @@ app.post('/api/postDailyLogin', (req, res) => {
     client.query("SELECT id FROM sessionids WHERE sessionkey = " + req.body.sessionKey + ";", (error, result) => {
       if (result.rows.length === 0) {
         //The Provided Session Key isn't in the sessionids Table, get outta here!
-        res.send(false);
+        res.send("Session Key Doesn't Exist");
         client.end();
       } else {
         //The Session Key Worked! Give em some monies
-        res.send(true);
+        res.send("Success. Got Points");
         userId = result.rows[0].id;
         client.query("UPDATE points SET points = points + " + dailyPoints + ", lastLogin = NOW() WHERE id = " + userId + ";", (error, result) => {
           client.end();

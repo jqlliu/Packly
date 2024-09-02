@@ -56,7 +56,7 @@ export class HomeComponent {
     if (this.cookieService.get('sessionKey')) {
       console.log("Tried to get Daily Reward with Session Key " + this.cookieService.get('sessionKey'));
       this.apiService.attemptDaily(this.cookieService.get('sessionKey')).subscribe((data: any) => {
-        //Do celebration logic?
+        console.log(data);
       });
     } else {
       //You dont got no sessionKey! Get outta here!
