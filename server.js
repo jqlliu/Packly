@@ -238,6 +238,50 @@ function getCardInfo(req, res){
   });
 }
 
+function getCardQuantityArray(req, res){
+  const client = new Client(pgConfig);
+  client.connect().then(
+    () => {
+      client.query("SELECT * FROM inventory WHERE id = " + req.query.id + ";", (error, result) => {
+        if (error) {
+          console.log(error);
+        }
+        client.end().then(() => {
+          console.log('CLOSED');
+          if (result.rowCount > 0) {
+            res.json({
+              inventory: result.rows[0].inventory
+            });
+          }
+        });
+      });
+    }
+  ).catch(
+    (err) => {
+      console.log(err);
+    }
+  );
+}
+//Add amount to card
+function addCardToId(id, amount, i){
+  const client = new Client(pgConfig);
+  client.connect().then(
+    () => {
+      client.query("UPDATE inventory SET inventory [" + i + "] = inventory [" + i + "] + " + amount + " WHERE id = " + id + ";", (error, result) => {
+        if (error) {
+          console.log(error);
+        }
+        client.end().then(() => {
+        });
+      });
+    }
+  ).catch(
+    (err) => {
+      console.log(err);
+    }
+  );
+}
+
 app.use(passCORS);
 
 app.use("/api/secure", (req, res) => {
