@@ -268,10 +268,8 @@ function postAccountData(req, res){
 }
 
 function deleteSessionKey(req, res){
-  console.log("CALLING DELETE SESSION KEY");
   const client = new Client(pgConfig);
   client.connect().then(() => {
-    console.log("DELETING" + req.query.key);
     client.query("DELETE FROM sessionids WHERE sessionkey = " + req.query.key + ";", (error, result) => {
       if (error) {
         console.log(error);
