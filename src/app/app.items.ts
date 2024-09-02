@@ -58,6 +58,7 @@ export class ItemsComponent {
   loaded = false;
 
   constructor(private cookieService: CookieService, private apiService: ApiService) {
+    this.getCardCounts();
     this.setNonZeroIds();
     this.setAllCardData();
   }
