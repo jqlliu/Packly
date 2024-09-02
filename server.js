@@ -290,7 +290,7 @@ function getFile(req, res){
 }
 
 function getCardInfo(req, res){
-  fileSystem.readFile(path.join(__dirname, 'cardData', 'cards.json'), 'utf8', (err, data) => {
+  fileSystem.readFile(path.join(__dirname, 'information', 'cards.json'), 'utf8', (err, data) => {
     res.json(JSON.parse(data)[req.params.id]);
   });
 }
@@ -340,6 +340,9 @@ function addCardToId(id, amount, i){
   );
 }
 
+function openPack(){
+
+}
 
 app.use(passCORS);
 
@@ -362,7 +365,7 @@ app.get('/api/getAuthenticateUser', getAuthenticateUser);
 //Given account info create new account
 app.post('/api/postAccountData', postAccountData);
 
-//Given a login, return a session key if valid, and upload the session key to the database
+//Given an id, returns the quantity array for that user
 app.get('/api/getCardQuantityArray', getCardQuantityArray);
 
 //Provided a given session key, delete it from the database

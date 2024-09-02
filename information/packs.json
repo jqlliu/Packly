@@ -1,0 +1,32 @@
+{
+    "basic":{
+        "type": 0,
+        "chance": [600, 250, 100, 45, 5],
+        "amount": [2, 5],
+        "points": 15
+    },
+    "draw":{
+        "type": 0,
+        "chance": [600, 250, 100, 45, 5],
+        "amount": [1, 1],
+        "points": 5
+    },
+    "boosted":{
+        "type": 0,
+        "chance": [450, 300, 150, 75, 25],
+        "amount": [2, 5],
+        "points": 35
+    },
+    "new":{
+        "type": 1,
+        "chance": [600, 250, 100, 45, 5],
+        "amount": [1, 1],
+        "points": 35
+    },
+    "premium":{
+        "type": 0,
+        "cards": [0, 350, 250, 150, 50],
+        "amount": [1, 1],
+        "points": 125
+    }
+}
