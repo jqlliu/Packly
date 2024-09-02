@@ -130,7 +130,7 @@ function getAccountData(req, res) {
       console.log(err);
     }
   );
-});
+};
 
 app.get('/api/getTime', (req, res) => {
   const serverTime = new Date();
@@ -256,7 +256,7 @@ function postAccountData(req, res){
     (err) => {
       console.log(err);
     });
-});
+};
 
 function deleteSessionKey(req, res){
   const client = new Client(pgConfig);
