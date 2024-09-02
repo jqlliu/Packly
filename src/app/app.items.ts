@@ -58,15 +58,19 @@ export class ItemsComponent {
   loaded = false;
 
   constructor(private cookieService: CookieService, private apiService: ApiService) {
-    this.getCardCounts();
-    this.setNonZeroIds();
-    this.setAllCardData();
+    this.getData();
   }
 
   getCardCounts() {
-    this.apiService.getInventory(this.cookieService.get('sessionKey')).subscribe((data: any) => {
+    return firstValueFrom(this.apiService.getInventory(this.cookieService.get('sessionKey'))).then((data: any) => {
       this.cardCount = data.inventory;
     });
+  }
+
+  async getData() {
+    await this.getCardCounts();
+    this.setNonZeroIds();
+    this.setAllCardData();
   }
 
   fetchImage(name: string) {
