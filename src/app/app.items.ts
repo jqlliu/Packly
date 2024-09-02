@@ -65,7 +65,7 @@ export class ItemsComponent {
 
   getCardCounts() {
     this.apiService.getInventory(this.cookieService.get('sessionKey')).subscribe((data: any) => {
-      this.cardCount = data;
+      this.cardCount = data.inventory;
     });
   }
 
