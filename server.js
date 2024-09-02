@@ -203,12 +203,23 @@ app.post('/api/postDailyLogin', (req, res) => {
         res.json({ message: "Failure. Session Key does not link to an Account" });
         client.end();
       } else {
-        //The Session Key Worked! Give em some monies
-        res.json({ message: "Success. Got Points" });
+        //The Session Key Worked! Check if User got monies less than 6 Hours ago
         userId = result.rows[0].id;
-        client.query("UPDATE points SET points = points + " + dailyPoints + ", lastLogin = NOW() WHERE id = " + userId + ";", (error, result) => {
-          client.end();
-        });
+        client.query("SELECT lastLogin FROM points WHERE id " + userId + ";", (error, result) => {
+          timeDiff = Math.abs(new Date() - new Date(user.lastLogin)) / 36e5;
+          console.log(timeDiff);
+          if (timeDiff < 6) {
+            //Too Soon! Come back later!
+            res.json({ message: "Time Interval too Short" });
+            client.end();
+          } else {
+            //Success! Give em some monies!
+            res.json({ message: "Success. Got Points" });
+            client.query("UPDATE points SET points = points + " + dailyPoints + ", lastLogin = NOW() WHERE id = " + userId + ";", (error, result) => {
+              client.end();
+            });
+          }
+          });
       }
     }));
 });
