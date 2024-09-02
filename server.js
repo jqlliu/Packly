@@ -28,7 +28,7 @@ function getAccountInfo(field) {
 //INSERT INTO accounts (username, email, password) VALUES ( a, a, a );
 
 
-//CREATE TABLE points (points INTEGER DEFAULT 0, lastLogin DATETIME, id SERIAL PRIMARY KEY  );
+//CREATE TABLE points (points INTEGER DEFAULT 0, lastLogin TIMESTAMP, id SERIAL PRIMARY KEY );
 //INSERT INTO points (points, lastLogin) VALUES ( a, a ); //You can use CURRENT_TIMESTAMP for lastLogin
 
 
