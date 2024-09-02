@@ -12,30 +12,41 @@ import { canActivate } from './api.routeguard';
 export const routes: Routes = [{
     path: '',
     title: 'Home',
-   component: HomeComponent
+    component: HomeComponent
 },{
     path: 'purchase',
     title: 'Purchase',
-   component: PurchaseComponent
+    component: PurchaseComponent,
+    canActivate: [canActivate],
+    data: { needsLogin: true }
 },{
     path: 'login',
     title: 'Login',
-   component: LoginComponent
+    component: LoginComponent,
+    canActivate: [canActivate],
+    data: { needsLogout: true }
 },{
     path: 'signup',
     title: 'Signup',
-   component: SignupComponent
+    component: SignupComponent,
+    canActivate: [canActivate],
+    data: { needsLogout: true }
 },{
     path: 'items',
     title: 'Items',
-   component: ItemsComponent
+    component: ItemsComponent,
+    canActivate: [canActivate],
+    data: { needsLogin: true }
 },{
     path: 'trade',
     title: 'Trade',
-   component: TradeComponent
+    component: TradeComponent,
+    canActivate: [canActivate],
+    data: { needsLogin: true }
 },{
     path: 'account',
     title: 'Account',
+    component: AccountComponent,
     canActivate: [canActivate],
-   component: AccountComponent
+    data: { needsLogin: true }
 },];
