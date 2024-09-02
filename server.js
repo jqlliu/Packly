@@ -27,6 +27,9 @@ function getAccountInfo(field) {
 //CREATE TABLE accounts (username VARCHAR(32), email VARCHAR(256), password VARCHAR(256), id SERIAL PRIMARY KEY  );
 //INSERT INTO accounts (username, email, password) VALUES ( a, a, a );
 
+//CREATE TABLE points (points INTEGER DEFAULT 0, lastlogin TIMESTAMP, id SERIAL PRIMARY KEY );
+//INSERT INTO points (points, lastlogin) VALUES ( a, a ); //You can use CURRENT_TIMESTAMP for lastlogin
+
 
 //CREATE TABLE inventory (inventory INT [] , id INT PRIMARY KEY  );
 //INSERT INTO inventory (inventory) VALUES ( ARRAY []::integer[] , id );
@@ -53,6 +56,21 @@ function checkAccountExists(client, username, email, callback) {
     const rows = result.rowCount;
     callback(rows == 0 ? true : false);
   });
+}
+
+function deleteSessionKey(sessionKey){
+  const client = new Client(pgConfig);
+  client.connect().then(() => {
+    client.query("DELETE FROM sessionids WHERE sessionkey = " + req.query.key + ";", (error, result) => {
+      if (error) {
+        console.log(error);
+      }
+      res.json({
+        success: true,
+      });
+      client.end();
+    });
+  })
 }
 
 function recursiveGetSessionKey(id, client, callback) {
@@ -121,7 +139,11 @@ function getAccountData(req, res) {
       console.log(err);
     }
   );
+}
 
+function getTime(req, res){
+  const serverTime = new Date();
+  res.json({ time: serverTime.toISOString() });
 }
 
 function getAuthenticateUser(req, res){
@@ -167,6 +189,38 @@ function getAuthenticateUser(req, res){
   )
 }
 
+function attemptDaily(req, res){
+  const dailyPoints = 25;
+  const client = new Client(pgConfig);
+  client.connect().then(
+    client.query("SELECT * FROM sessionids WHERE sessionkey = " + req.body.sessionKey + ";", (error, result) => {
+      if (result.rows.length === 0) {
+        //The Provided Session Key isn't in the sessionids Table, get outta here!
+        res.json({ message: "Failure. Session Key does not link to an Account" });
+        client.end();
+      } else {
+        //The Session Key Worked! Check if User got monies less than 6 Hours ago
+        userId = result.rows[0].id;
+        client.query("SELECT * FROM points WHERE id = " + userId + ";", (error, result) => {
+          now = new Date();
+          lastLogin = new Date(result.rows[0].lastlogin);
+          timeDiff = Math.abs(now - lastLogin) / 36e5;
+          if (timeDiff < 6) {
+            //Too Soon! Come back later!
+            res.json({ message: "Time Interval too Short" });
+            client.end();
+          } else {
+            //Success! Give em some monies!
+            res.json({ message: "Success. Got Points" });
+            client.query("UPDATE points SET points = points + " + dailyPoints + ", lastLogin = NOW() WHERE id = " + userId + ";", (error, result) => {
+              client.end();
+            });
+          }
+          });
+      }
+    }));
+}
+
 function postAccountData(req, res){
   console.log(req.body);
   const client = new Client(pgConfig);
@@ -209,7 +263,6 @@ function postAccountData(req, res){
     (err) => {
       console.log(err);
     });
-
 }
 
 function deleteSessionKey(req, res){
@@ -237,6 +290,7 @@ function getCardInfo(req, res){
     res.json(JSON.parse(data)[req.params.id]);
   });
 }
+
 
 function getCardQuantityArray(req, res){
   const client = new Client(pgConfig);
@@ -282,6 +336,7 @@ function addCardToId(id, amount, i){
   );
 }
 
+
 app.use(passCORS);
 
 app.use("/api/secure", (req, res) => {
@@ -300,20 +355,27 @@ app.get('/api/getAccountData', getAccountData);
 //Given a login, return a session key if valid, and upload the session key to the database
 app.get('/api/getAuthenticateUser', getAuthenticateUser);
 
-//Given a login, return a session key if valid, and upload the session key to the database
-app.get('/api/getCardQuantityArray', getCardQuantityArray);
-
 //Given account info create new account
 app.post('/api/postAccountData', postAccountData);
+
+//Given a login, return a session key if valid, and upload the session key to the database
+app.get('/api/getCardQuantityArray', getCardQuantityArray);
 
 //Provided a given session key, delete it from the database
 app.delete('/api/deleteSessionKey', deleteSessionKey);
 
 //Given a filename, send the asked for file to client
-app.get('/api/:file', getFile);
+app.get('/api/file/:file', getFile);
 
 //Given an id, return the required card info
 app.get('/api/card/:id', getCardInfo);
+
+//Get whatever the time in the server is
+app.get('/api/getTime', getTime);
+
+//Given a session key, attempt to do a daily login to that user
+app.post('/api/postDailyLogin', attemptDaily);
+
 
 app.listen(3000, () => {
   console.log("LISTENING");
