@@ -7,6 +7,7 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-trade',
   template: `
+  Work In Progress
   <div class = "flex flex-col items-center align-middle px-auto py-12">
   <form class="w-full max-w-sm" [formGroup]="submissionForm">
   <div class="flex items-center mb-4">
