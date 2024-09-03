@@ -51,6 +51,7 @@ export class AppComponent implements OnInit {
   logout() {
     this.apiService.deleteSessionKey(+this.cookieService.get('sessionKey')).subscribe((data: any) => {});
     this.cookieService.delete('sessionKey');
+    this.points = 0;
   }
 
   getPoints() {
