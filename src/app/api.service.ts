@@ -10,7 +10,7 @@ export class ApiService{
     constructor(private http: HttpClient){
         
     }
-    //Get account information to display in my account
+    //Given a session key, Get account information to display in my account
     getAccountInfo(sessionKey: string){
         return this.http.get("http://localhost:3000/api/getAccountData", {params: new HttpParams().set("sessionKey", sessionKey)});
     }
