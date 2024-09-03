@@ -46,11 +46,7 @@ export class AppComponent implements OnInit {
     this.getPoints();
   }
 
-  ngOnInit(): void {
-    // this.api.getAccountInfo(1).subscribe(data => {
-    //   console.log(data);
-    // })
-  }
+  ngOnInit(): void {}
 
   logout() {
     this.apiService.deleteSessionKey(+this.cookieService.get('sessionKey')).subscribe((data: any) => {});
