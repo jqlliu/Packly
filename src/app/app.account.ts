@@ -12,7 +12,7 @@ import { CookieService } from 'ngx-cookie-service';
   <p class = "mx-5 my-3">Username: {{username}}</p>
   <p class = "mx-5 my-3">E-Mail: {{email}}</p>
   <p class = "mx-5 my-3">Current Balance: {{points}}</p>
-  <p class = "mx-5 my-3">Account Creation Date: {{username}}</p>
+  <p class = "mx-5 my-3">Account Creation Date: </p>
 
   <p class = "mx-5 my-3 mt-10">Trades</p>
   <p class = "mx-5 my-3">Outgoing Trades: </p>
