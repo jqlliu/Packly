@@ -50,4 +50,8 @@ export class ApiService{
     attemptDaily(sessionKey: string){
         return this.http.post("http://localhost:3000/api/postDailyLogin", { "sessionKey": sessionKey });
     }
+    //Get the number of points associated
+    getPoints(sessionKey: string){
+        return this.http.get("http://localhost:3000/api/getPoints", {params: new HttpParams().set("sessionKey", sessionKey)});
+    }
 }
