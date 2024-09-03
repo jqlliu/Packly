@@ -143,6 +143,24 @@ function getAccountData(req, res) {
   );
 }
 
+function getPoints(req, res) {
+  const client = new Client(pgConfig);
+  client.connect().then(
+    client.query("SELECT * FROM sessionids WHERE sessionkey = " + req.query.sessionKey + ";", (error, result) => {
+      if (result.rows.length === 0) {
+        //The Provided Session Key isn't in the sessionids Table, get outta here!
+        res.json({ points: -1 });
+        client.end();
+      } else {
+        userId = result.rows[0].id;
+        client.query("SELECT * FROM points WHERE id = " + userId + ";", (error, result) => {
+          res.json({ points: result.rows[0].points });
+          client.end();
+        });
+      }
+    }));
+}
+
 function getTime(req, res){
   const serverTime = new Date();
   res.json({ time: serverTime.toISOString() });
@@ -390,6 +408,9 @@ app.get('/api/getTime', getTime);
 
 //Given a session key, attempt to do a daily login to that user
 app.post('/api/postDailyLogin', attemptDaily);
+
+//Given a session key, return that users number of points
+app.get('/api/getPoints', getPoints);
 
 app.listen(3000, () => {
   console.log("LISTENING");
