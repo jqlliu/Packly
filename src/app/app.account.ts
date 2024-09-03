@@ -15,17 +15,17 @@ import { CookieService } from 'ngx-cookie-service';
   <p class = "mx-5 my-3">Account Creation Date: {{username}}</p>
 
   <p class = "mx-5 my-3 mt-10">Trades</p>
-  <p class = "mx-5 my-3">Outgoing Trades: {{username}}</p>
-  <p class = "mx-5 my-3">Ingoing Trades: {{username}}</p>
+  <p class = "mx-5 my-3">Outgoing Trades: </p>
+  <p class = "mx-5 my-3">Ingoing Trades: </p>
 
   <p class = "mx-5 my-3 mt-10">Account Stats</p>
-  <p class = "mx-5 my-3">Total Cards Owned: {{username}} / {{username}}</p>
-  <p class = "mx-5 my-3">Total Cards Collected: {{username}} / {{username}}</p>
-  <p class = "mx-5 my-3">Rarity 1 Cards Collected: {{username}} / {{username}}</p>
-  <p class = "mx-5 my-3">Rarity 2 Cards Collected: {{username}} / {{username}}</p>
-  <p class = "mx-5 my-3">Rarity 3 Cards Collected: {{username}} / {{username}}</p>
-  <p class = "mx-5 my-3">Chests Opened: {{username}}</p>
-  <p class = "mx-5 my-3">Packs Opened: {{username}}</p>
+  <p class = "mx-5 my-3">Total Cards Owned:  / </p>
+  <p class = "mx-5 my-3">Total Cards Collected:  / </p>
+  <p class = "mx-5 my-3">Rarity 1 Cards Collected:  / </p>
+  <p class = "mx-5 my-3">Rarity 2 Cards Collected:  / </p>
+  <p class = "mx-5 my-3">Rarity 3 Cards Collected:  / </p>
+  <p class = "mx-5 my-3">Chests Opened: </p>
+  <p class = "mx-5 my-3">Packs Opened: </p>
 `,
   standalone: true,
   styleUrl: './app.component.css'
