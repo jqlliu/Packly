@@ -28,6 +28,7 @@ import { CookieService } from 'ngx-cookie-service';
         <li class = "text-white hover:text-gray-200"><a routerLink="/account">Your Account</a></li>
         <li class = "text-white hover:text-gray-200"><a routerLink="/login">Login</a></li>
         <li class = "text-white hover:text-gray-200" (click)="logout()"><a routerLink="/">Logout</a></li>
+        <li class = "text-white hover:text-gray-200">{{ points }}</li>
       </ul>
     </div>
 </nav>
@@ -40,7 +41,9 @@ import { CookieService } from 'ngx-cookie-service';
 
 export class AppComponent implements OnInit {
   title = 'my-app';
+  points = 0;
   constructor(private cookieService: CookieService, private apiService: ApiService){
+    this.getPoints();
   }
 
   ngOnInit(): void {
@@ -52,5 +55,9 @@ export class AppComponent implements OnInit {
   logout() {
     this.apiService.deleteSessionKey(+this.cookieService.get('sessionKey')).subscribe((data: any) => {});
     this.cookieService.delete('sessionKey');
+  }
+
+  getPoints() {
+    this.apiService.getPoints(this.cookieService.get('sessionKey')).subscribe((data: any) => { this.points = data.points });
   }
 }
