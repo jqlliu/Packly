@@ -121,7 +121,7 @@ function getAccountData(req, res) {
   const client = new Client(pgConfig);
   client.connect().then(
     () => {
-      client.query("SELECT * FROM sessionids WHERE sessionkey = " + req.body.sessionKey + ";", (error, result) => {
+      client.query("SELECT * FROM sessionids WHERE sessionkey = " + req.query.sessionKey + ";", (error, result) => {
         if (result.rows.length === 0) {
           //The Provided Session Key isn't in the sessionids Table, get outta here!
           res.json({
