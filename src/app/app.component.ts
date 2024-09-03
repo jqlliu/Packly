@@ -28,8 +28,8 @@ import { CookieService } from 'ngx-cookie-service';
         <li class = "text-white hover:text-gray-200"><a routerLink="/account">Your Account</a></li>
         <li class = "text-white hover:text-gray-200"><a routerLink="/login">Login</a></li>
         <li class = "text-white hover:text-gray-200" (click)="logout()"><a routerLink="/">Logout</a></li>
-        <li class = "text-white hover:text-gray-200">{{ points }}</li>
       </ul>
+      <p class = "text-white hover:text-gray-200">{{ points }}</p>
     </div>
 </nav>
 <router-outlet />
