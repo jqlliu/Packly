@@ -145,11 +145,7 @@ function getAccountData(req, res) {
             });
           });
         }
-      }).catch(
-    (err) => {
-      console.log(err);
-    }
-  )});
+      })});
 }
 
 function getPoints(req, res) {

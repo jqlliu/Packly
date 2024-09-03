@@ -41,7 +41,7 @@ export class AccountComponent implements OnInit {
   constructor(private cookieService: CookieService, private apiService: ApiService){
   }
   ngOnInit(): void {
-    this.apiService.getAccountInfo(1).subscribe( (data: any) => {
+    this.apiService.getAccountInfo(this.cookieService.get('sessionKey')).subscribe( (data: any) => {
       console.log(data.username);
       console.log(data);
       this.username = data.username;
