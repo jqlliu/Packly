@@ -121,26 +121,35 @@ function getAccountData(req, res) {
   const client = new Client(pgConfig);
   client.connect().then(
     () => {
-      client.query("SELECT * FROM accounts WHERE id = " + req.query.id + ";", (error, result) => {
-        if (error) {
-          console.log(error);
-        }
-        client.end().then(() => {
-          console.log('CLOSED');
-          if (result.rowCount > 0) {
-            res.json({
-              email: result.rows[0].email,
-              username: result.rows[0].username
+      client.query("SELECT * FROM sessionids WHERE sessionkey = " + req.body.sessionKey + ";", (error, result) => {
+        if (result.rows.length === 0) {
+          //The Provided Session Key isn't in the sessionids Table, get outta here!
+          res.json({
+            email: 0,
+            username: 0
+          });
+          client.end();
+        } else {
+          //The Session Key Worked! Give user Data
+          userId = result.rows[0].id;
+          client.query("SELECT * FROM accounts WHERE id = " + userId + ";", (error, result) => {
+            if (error) {
+              console.log(error);
+            }
+            client.end().then(() => {
+              console.log('CLOSED');
+              res.json({
+                email: result.rows[0].email,
+                username: result.rows[0].username
+              });
             });
-          }
-        });
-      });
-    }
-  ).catch(
+          });
+        }
+      }).catch(
     (err) => {
       console.log(err);
     }
-  );
+  )});
 }
 
 function getPoints(req, res) {
@@ -201,7 +210,6 @@ function getAuthenticateUser(req, res){
               });
             });
           }
-
           recursiveGetSessionKey(idUpload, client, endClient);
         }
       });
