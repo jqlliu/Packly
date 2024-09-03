@@ -11,8 +11,8 @@ export class ApiService{
         
     }
     //Get account information to display in my account
-    getAccountInfo(id:number){
-        return this.http.get("http://localhost:3000/api/getAccountData", {params: new HttpParams().set("id", id)});
+    getAccountInfo(sessionKey: string){
+        return this.http.get("http://localhost:3000/api/getAccountData", {params: new HttpParams().set("sessionKey", sessionKey)});
     }
     //Use a Session Key, and Return that key's inventory
     getInventory(sessionKey: string){
