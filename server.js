@@ -338,8 +338,51 @@ function addCardToId(id, amount, i){
   );
 }
 
-function openPack(){
+var cards;
 
+fileSystem.readFile(path.join(__dirname, 'information', 'cards.json'), 'utf8', (err, data) => {
+  cards = data;
+});
+
+
+function openPack(name, data){
+  
+  const n = Math.floor(Math.random()*(data["amount"][1] - data["amount"][0])) + data["amount"][0] + 1;
+  var ret = []
+  for(j = 0; j < n; j ++){
+    if(data[name]){
+      const a = Math.floor(Math.random()*1000)
+      var b = data[name]["chance"][0];
+      var rarity = 0;
+      for(i = 1; i < 5; i ++){
+        if(a > b){
+          rarity ++;
+          b += data[name]["chance"][i];
+        }else{
+          break;
+        }
+      }
+    }
+
+    var t = 0;
+    var c = Math.floor(Math.random() * cards.length);
+    while(!cards[toString(c)] || !cards[toString(c)]["rarity"] == rarity || t < 200){
+      c = Math.floor(Math.random() * cards.length);
+      t ++;
+    }
+    if(t != 200){
+      ret[j] = cards[toString(c)]["name"];
+    }
+  }
+
+  return ret;
+}
+
+function handlePackOpen(req, res){
+  fileSystem.readFile(path.join(__dirname, 'information', 'packs.json'), 'utf8', (err, data) => {
+    
+    res.json(JSON.parse(data)[req.params.id]);
+  });
 }
 
 app.use(passCORS);
