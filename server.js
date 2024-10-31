@@ -53,14 +53,14 @@ function drawCards(cardname, hascard) {
   fileSystem.readFile(path.join(__dirname, 'information', 'packs.json'), 'utf8', (err, data) => {
     data = JSON.parse(data)[cardname]
     //Type 0 is normal, Type 1 guarantees a new card of that rarity.
-    type = data['type']
-    chance1 = data['chance'][0]
-    chance2 = data['chance'][1]
-    chance3 = data['chance'][2]
-    chance4 = data['chance'][3]
-    chance5 = data['chance'][4]
-    amountlower = data['amount'][0]
-    amountupper = data['amount'][1]
+    const type = data['type']
+    const chance1 = data['chance'][0]
+    const chance2 = data['chance'][1]
+    const chance3 = data['chance'][2]
+    const chance4 = data['chance'][3]
+    const chance5 = data['chance'][4]
+    const amountlower = data['amount'][0]
+    const amountupper = data['amount'][1]
   });
   //Return an array of cards
 }
