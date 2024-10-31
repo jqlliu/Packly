@@ -49,6 +49,14 @@ function getAccountInfo(field) {
 //Some middleware to handle CORS stuff
 
 
+function drawCards(cardname) {
+  fileSystem.readFile(path.join(__dirname, 'information', 'packs.json'), 'utf8', (err, data) => {
+    res.json(JSON.parse(data)[req.params.id]);
+  });
+  //Return an array of cards
+}
+
+
 function checkAccountExists(client, username, email, callback) {
   var s = "SELECT * FROM accounts WHERE username = '" + username + "' OR email = '" + email + "';";
   client.query(s, (error, result) => {
