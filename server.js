@@ -60,7 +60,7 @@ function checkAccountExists(client, username, email, callback) {
   });
 }
 
-function deleteSessionKey(sessionKey){
+function serverDeleteSessionKey(sessionKey){
   const client = new Client(pgConfig);
   client.connect().then(() => {
     client.query("DELETE FROM sessionids WHERE sessionkey = " + req.query.key + ";", (error, result) => {
@@ -121,26 +121,49 @@ function getAccountData(req, res) {
   const client = new Client(pgConfig);
   client.connect().then(
     () => {
-      client.query("SELECT * FROM accounts WHERE id = " + req.query.id + ";", (error, result) => {
-        if (error) {
-          console.log(error);
-        }
-        client.end().then(() => {
-          console.log('CLOSED');
-          if (result.rowCount > 0) {
-            res.json({
-              email: result.rows[0].email,
-              username: result.rows[0].username
+      client.query("SELECT * FROM sessionids WHERE sessionkey = " + req.query.sessionKey + ";", (error, result) => {
+        if (result.rows.length === 0) {
+          //The Provided Session Key isn't in the sessionids Table, get outta here!
+          res.json({
+            email: 0,
+            username: 0
+          });
+          client.end();
+        } else {
+          //The Session Key Worked! Give user Data
+          userId = result.rows[0].id;
+          client.query("SELECT * FROM accounts WHERE id = " + userId + ";", (error, result) => {
+            if (error) {
+              console.log(error);
+            }
+            client.end().then(() => {
+              console.log('CLOSED');
+              res.json({
+                email: result.rows[0].email,
+                username: result.rows[0].username
+              });
             });
-          }
+          });
+        }
+      })});
+}
+
+function getPoints(req, res) {
+  const client = new Client(pgConfig);
+  client.connect().then(
+    client.query("SELECT * FROM sessionids WHERE sessionkey = " + req.query.sessionKey + ";", (error, result) => {
+      if (result.rows.length === 0) {
+        //The Provided Session Key isn't in the sessionids Table, get outta here!
+        res.json({ points: -1 });
+        client.end();
+      } else {
+        userId = result.rows[0].id;
+        client.query("SELECT * FROM points WHERE id = " + userId + ";", (error, result) => {
+          res.json({ points: result.rows[0].points });
+          client.end();
         });
-      });
-    }
-  ).catch(
-    (err) => {
-      console.log(err);
-    }
-  );
+      }
+    }));
 }
 
 function getTime(req, res){
@@ -183,7 +206,6 @@ function getAuthenticateUser(req, res){
               });
             });
           }
-
           recursiveGetSessionKey(idUpload, client, endClient);
         }
       });
@@ -270,7 +292,8 @@ function postAccountData(req, res){
 function deleteSessionKey(req, res){
   const client = new Client(pgConfig);
   client.connect().then(() => {
-    client.query("DELETE FROM sessionids WHERE sessionkey = " + req.query.key + ";", (error, result) => {
+    console.log(req.body.sessionKey)
+    client.query("DELETE FROM sessionids WHERE sessionkey = " + req.body.sessionKey + ";", (error, result) => {
       if (error) {
         console.log(error);
       }
@@ -298,18 +321,27 @@ function getCardQuantityArray(req, res){
   const client = new Client(pgConfig);
   client.connect().then(
     () => {
-      client.query("SELECT * FROM inventory WHERE id = " + req.query.id + ";", (error, result) => {
-        if (error) {
-          console.log(error);
-        }
-        client.end().then(() => {
-          console.log('CLOSED');
-          if (result.rowCount > 0) {
-            res.json({
-              inventory: result.rows[0].inventory
+      client.query("SELECT * FROM sessionids WHERE sessionkey = " + req.query.sessionKey + ";", (error, result) => {
+        if (result.rows.length === 0) {
+          //The Provided Session Key isn't in the sessionids Table, get outta here!
+          res.json({
+            inventory: []
+          });
+          client.end();
+        } else {
+          //The Session Key Worked! Give the related inventory
+          userId = result.rows[0].id;
+          client.query("SELECT * FROM inventory WHERE id = " + userId + ";", (error, result) => {
+            if (error) {
+              console.log(error);
+            }
+            client.end().then(() => {
+              res.json({
+                inventory: result.rows[0].inventory
+              });
             });
-          }
-        });
+          });
+        }
       });
     }
   ).catch(
@@ -363,11 +395,11 @@ app.get('/api/getAuthenticateUser', getAuthenticateUser);
 //Given account info create new account
 app.post('/api/postAccountData', postAccountData);
 
-//Given an id, returns the quantity array for that user
+//Given a Session Key, returns the quantity array for that user
 app.get('/api/getCardQuantityArray', getCardQuantityArray);
 
 //Provided a given session key, delete it from the database
-app.delete('/api/deleteSessionKey', deleteSessionKey);
+app.post('/api/deleteSessionKey', deleteSessionKey);
 
 //Given a filename, send the asked for file to client
 app.get('/api/file/:file', getFile);
@@ -380,6 +412,9 @@ app.get('/api/getTime', getTime);
 
 //Given a session key, attempt to do a daily login to that user
 app.post('/api/postDailyLogin', attemptDaily);
+
+//Given a session key, return that users number of points
+app.get('/api/getPoints', getPoints);
 
 app.listen(3000, () => {
   console.log("LISTENING");

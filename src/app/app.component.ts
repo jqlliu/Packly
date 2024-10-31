@@ -4,6 +4,7 @@ import { ApiService } from './api.service';
 import { OnInit } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
+
 //MODULES:
 //Front: Angular 18, Tailwind, ngx-cookie-service
 //Back: Node.js with: express, express-session, path,
@@ -26,7 +27,9 @@ import { CookieService } from 'ngx-cookie-service';
         <li class = "text-white hover:text-gray-200"><a routerLink="/items">Your items</a></li>
         <li class = "text-white hover:text-gray-200"><a routerLink="/account">Your Account</a></li>
         <li class = "text-white hover:text-gray-200"><a routerLink="/login">Login</a></li>
+        <li class = "text-white hover:text-gray-200" (click)="logout()"><a routerLink="/">Logout</a></li>
       </ul>
+      <p class = "text-white hover:text-gray-200">{{ points }}</p>
     </div>
 </nav>
 <router-outlet />
@@ -38,12 +41,20 @@ import { CookieService } from 'ngx-cookie-service';
 
 export class AppComponent implements OnInit {
   title = 'my-app';
+  points = 0;
   constructor(private cookieService: CookieService, private apiService: ApiService){
+    this.getPoints();
   }
-  ngOnInit(): void {
-    
-    // this.api.getAccountInfo(1).subscribe(data => {
-    //   console.log(data);
-    // })
+
+  ngOnInit(): void {}
+
+  logout() {
+    this.apiService.deleteSessionKey(+this.cookieService.get('sessionKey')).subscribe((data: any) => {});
+    this.cookieService.delete('sessionKey');
+    this.points = 0;
+  }
+
+  getPoints() {
+    this.apiService.getPoints(this.cookieService.get('sessionKey')).subscribe((data: any) => { this.points = data.points });
   }
 }

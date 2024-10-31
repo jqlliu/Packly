@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { ApiService } from './api.service';
 import { CommonModule } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
 
 //This is a comment
 @Component({
@@ -49,14 +50,25 @@ import { CommonModule } from '@angular/common';
 
 export class ItemsComponent {
   title = 'Items';
-  cardCount = [3, 0, 5, 2, 1, 2, 5, 1];
+  cardCount = [0, 0, 0, 0, 0, 0, 0, 0];
   cardData: any[] = [];
   cardImages: any[] = [];
   nonZeroIds: any[] = [];
   i = 0
   loaded = false;
 
-  constructor(private apiService: ApiService) {
+  constructor(private cookieService: CookieService, private apiService: ApiService) {
+    this.getData();
+  }
+
+  getCardCounts() {
+    return firstValueFrom(this.apiService.getInventory(this.cookieService.get('sessionKey'))).then((data: any) => {
+      this.cardCount = data.inventory;
+    });
+  }
+
+  async getData() {
+    await this.getCardCounts();
     this.setNonZeroIds();
     this.setAllCardData();
   }
