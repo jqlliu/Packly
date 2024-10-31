@@ -49,9 +49,17 @@ function getAccountInfo(field) {
 //Some middleware to handle CORS stuff
 
 
-function drawCards(cardname) {
+function drawCards(cardname, hascard) {
   fileSystem.readFile(path.join(__dirname, 'information', 'packs.json'), 'utf8', (err, data) => {
-    res.json(JSON.parse(data)[req.params.id]);
+    //Type 0 is normal, Type 1 guarantees a new card of that rarity.
+    type = JSON.parse(data)[cardname][type]
+    chance1 = JSON.parse(data)[cardname][chance][0]
+    chance2 = JSON.parse(data)[cardname][chance][1]
+    chance3 = JSON.parse(data)[cardname][chance][2]
+    chance4 = JSON.parse(data)[cardname][chance][3]
+    chance5 = JSON.parse(data)[cardname][chance][4]
+    amountlower = JSON.parse(data)[cardname][amount][0]
+    amountupper = JSON.parse(data)[cardname][amount][1]
   });
   //Return an array of cards
 }
