@@ -48,19 +48,38 @@ function getAccountInfo(field) {
 
 //Some middleware to handle CORS stuff
 
-
-function drawCards(cardname, donthave) {
+//packName is just the name of the pack. donthave is an array of 0'1 and 1's, where 0 denotes not having
+//a given card, and 1 denotes having it. Rarities is another array denoting the rarity of the cards.
+function drawCards(packName, donthave, rarities) {
   fileSystem.readFile(path.join(__dirname, 'information', 'packs.json'), 'utf8', (err, data) => {
-    data = JSON.parse(data)[cardname]
+    data = JSON.parse(data)[packName];
     //Type 0 is normal, Type 1 guarantees a new card of that rarity.
-    const type = data['type']
-    const chance1 = data['chance'][0]
-    const chance2 = data['chance'][1]
-    const chance3 = data['chance'][2]
-    const chance4 = data['chance'][3]
-    const chance5 = data['chance'][4]
-    const amountlower = data['amount'][0]
-    const amountupper = data['amount'][1]
+    const type = data['type'];
+    const chance1 = data['chance'][0];
+    const chance2 = data['chance'][1];
+    const chance3 = data['chance'][2];
+    const chance4 = data['chance'][3];
+    const chance5 = data['chance'][4];
+    const amountlower = data['amount'][0];
+    const amountupper = data['amount'][1];
+    //Determine how many cards to draw
+    const numCards = Math.floor(Math.random() * (amountupper - amountlower + 1)) + amountlower;
+
+    //Draw cards
+    for (let i = 0; i < numCards; i++) {
+      let rng = math.floor(Math.random() * 1000);
+      if (rng < chance1) {
+        //Draw rarity 1 card
+      } else if (rng < chance2) {
+        //Draw rarity 2 card
+      } else if (rng < chance3) {
+        //Draw rarity 3 card
+      } else if (rng < chance4) {
+        //Draw rarity 4 card
+      } else if (rng < chance5) {
+        //Draw rarity 5 card
+      }
+    }
   });
   //Return an array of cards
 }
