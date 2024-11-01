@@ -92,11 +92,11 @@ function drawCards(packName, doesHave, rarities) {
       }
 
       //Use computed rarity to draw a card
+      let drawnCard;
       if (type == 1) {
         //Type 1 computation
         //I love you internet. This filters to all the valid cards, so you dont have it, and it's of the right rarity.
         let valid = cards.filter((_, index) => rarities[index] === rarity && doesHave[index] === 0);
-        let drawnCard;
         if (valid.length() == 0) {
           //Already have all cards of this rarity.
           valid = cards.filter((_, index) => rarities[index] === rarity);
