@@ -95,8 +95,22 @@ function drawCards(packName, doesHave, rarities) {
       if (type == 1) {
         //Type 1 computation
         //I love you internet. This filters to all the valid cards, so you dont have it, and it's of the right rarity.
-        let valid = arrayA.filter((_, index) => rarities[index] === rarity && doesHave[index] === 0);
+        let valid = cards.filter((_, index) => rarities[index] === rarity && doesHave[index] === 0);
+        if (valid.length() == 0) {
+          //Already have all cards of this rarity.
+          valid = cards.filter((_, index) => rarities[index] === rarity);
+          let drawnCard = valid[Math.floor(Math.random() * valid.length)];
+        } else {
+          let drawnCard = valid[Math.floor(Math.random() * valid.length)];
+        }
+      } else {
+        //Type 0 computation
+        valid = cards.filter((_, index) => rarities[index] === rarity);
+        let drawnCard = valid[Math.floor(Math.random() * valid.length)];
       }
+
+      //Add drwn card to array
+      drawnCards[drawnCard] += 1;
     }
     //Return an array of cards
     return drawnCards;
