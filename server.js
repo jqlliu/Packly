@@ -344,29 +344,59 @@ function openPack(){
 
 app.use(passCORS);
 
-app.use("/api/secure", (req, res) => {
-
-});
-
 // app.use(express.urlencoded({
 //   extended: true
 // }));
 
 app.use(express.json());
+session.session({
+  secret: "2ef75e07c2161dfb17c78c073892b9d3e2a6dca5b87f89e5cb69c5b0f2831225",
+  resave: false,
+  saveUninitialized: true,
+})
+app.use(function(req, res, next){
+  req.username = req.session.username? req.session.username: null;
+  next();
+});
 
 //Given an id return account information (might switch to checkAccountData or smthing later)
-app.get('/api/getAccountData', getAccountData);
+app.get('/api/users/:username/', function(req, res, next){
 
-//Given a login, return a session key if valid, and upload the session key to the database
-app.get('/api/getAuthenticateUser', getAuthenticateUser);
+});
+
+//Sign in to an account
+app.get('/api/users', function(req, res, next){
+  if(req.username) return res.status(409).end("Already signed in");
+  const client = new Client(pgConfig);
+  client.connect().then(() => {
+      //Query the Database
+      client.query("SELECT * FROM accounts WHERE username = '" + req.body.username + "';", (error, result) => {
+        //If error, log
+        if (error) return client.end().then(() =>{res.status(500).end(error)});
+        if (result.rowCount == 0) return client.end().then(() =>{res.status(404).end("Username not found")});
+        if (result.rows[0].password != req.body.password) return client.end().then(() =>{res.status(401).end("Access denied")});
+        res.setHeader(
+          "Set-Cookie",
+          serialize("username", username, {
+            path: "/",
+            maxAge: 60 * 60 * 24 * 7,
+          }),
+        );
+      });
+    }
+  )
+});
 
 //Given account info create new account
-app.post('/api/postAccountData', postAccountData);
+app.post('/api/users', postAccountData);
 
 //Given an id, returns the quantity array for that user
-app.get('/api/getCardQuantityArray', getCardQuantityArray);
+app.get('/api/users/:username/cards', getCardQuantityArray);
 
-//Provided a given session key, delete it from the database
+//Return quantity array for current user
+app.get('/api/users/', getCardQuantityArray);
+
+//Remove this cringe bleh
 app.delete('/api/deleteSessionKey', deleteSessionKey);
 
 //Given a filename, send the asked for file to client
@@ -376,7 +406,7 @@ app.get('/api/file/:file', getFile);
 app.get('/api/card/:id', getCardInfo);
 
 //Get whatever the time in the server is
-app.get('/api/getTime', getTime);
+app.get('/api/time', getTime);
 
 //Given a session key, attempt to do a daily login to that user
 app.post('/api/postDailyLogin', attemptDaily);
