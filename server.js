@@ -55,7 +55,6 @@ function drawCards(packName, donthave, rarities) {
     data = JSON.parse(data)[packName];
     //Type 0 is normal, Type 1 guarantees a new card of that rarity.
     const type = data['type'];
-    const chance1 = data['chance'][0];
     const chance2 = data['chance'][1];
     const chance3 = data['chance'][2];
     const chance4 = data['chance'][3];
@@ -67,17 +66,23 @@ function drawCards(packName, donthave, rarities) {
 
     //Draw cards
     for (let i = 0; i < numCards; i++) {
+      //Compute what rarity card to draw
       let rng = math.floor(Math.random() * 1000);
-      if (rng < chance1) {
-        //Draw rarity 1 card
-      } else if (rng < chance2) {
-        //Draw rarity 2 card
-      } else if (rng < chance3) {
-        //Draw rarity 3 card
-      } else if (rng < chance4) {
-        //Draw rarity 4 card
-      } else if (rng < chance5) {
+      if (rng < chance5) {
         //Draw rarity 5 card
+        let rarity = 5;
+      } else if (rng < chance5 + chance4) {
+        //Draw rarity 4 card
+        let rarity = 4;
+      } else if (rng < chance5 + chance4 + chance3) {
+        //Draw rarity 3 card
+        let rarity = 3;
+      } else if (rng < chance5 + chance4 + chance3 + chance2) {
+        //Draw rarity 2 card
+        let rarity = 2;
+      } else {
+        //Draw rarity 1 card
+        let rarity = 1
       }
     }
   });
