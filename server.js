@@ -48,11 +48,16 @@ function getAccountInfo(field) {
 
 //Some middleware to handle CORS stuff
 
-//packName is just the name of the pack. donthave is an array of 0'1 and 1's, where 0 denotes not having
+//packName is just the name of the pack. doesHave is an array of 0'1 and 1's, where 0 denotes not having
 //a given card, and 1 denotes having it. Rarities is another array denoting the rarity of the cards.
-function drawCards(packName, donthave, rarities) {
+//Returns an array of cards to be given.
+function drawCards(packName, doesHave, rarities) {
   fileSystem.readFile(path.join(__dirname, 'information', 'packs.json'), 'utf8', (err, data) => {
+    //Initialize stuff
+    const numUniqueCards = rarities.length();
+    let drawnCards = new Array(doesHave.length()).fill(0);
     data = JSON.parse(data)[packName];
+    const cards = Array.from({ numUniqueCards }, (_, index) => index);
     //Type 0 is normal, Type 1 guarantees a new card of that rarity.
     const type = data['type'];
     const chance2 = data['chance'][1];
@@ -68,25 +73,34 @@ function drawCards(packName, donthave, rarities) {
     for (let i = 0; i < numCards; i++) {
       //Compute what rarity card to draw
       let rng = math.floor(Math.random() * 1000);
+      let rarity = 0;
       if (rng < chance5) {
         //Draw rarity 5 card
-        let rarity = 5;
+        rarity = 5;
       } else if (rng < chance5 + chance4) {
         //Draw rarity 4 card
-        let rarity = 4;
+        rarity = 4;
       } else if (rng < chance5 + chance4 + chance3) {
         //Draw rarity 3 card
-        let rarity = 3;
+        rarity = 3;
       } else if (rng < chance5 + chance4 + chance3 + chance2) {
         //Draw rarity 2 card
-        let rarity = 2;
+        rarity = 2;
       } else {
         //Draw rarity 1 card
-        let rarity = 1
+        rarity = 1;
+      }
+
+      //Use computed rarity to draw a card
+      if (type == 1) {
+        //Type 1 computation
+        //I love you internet. This filters to all the valid cards, so you dont have it, and it's of the right rarity.
+        let valid = arrayA.filter((_, index) => rarities[index] === rarity && doesHave[index] === 0);
       }
     }
+    //Return an array of cards
+    return drawnCards;
   });
-  //Return an array of cards
 }
 
 
